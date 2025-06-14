@@ -1,0 +1,161 @@
+<style>
+    /* Footer base styling */
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    footer {
+        margin-top: 50px;
+        display: flex;
+        margin: auto;
+        background: linear-gradient(to bottom, #fffaf5 0%, rgb(0, 4, 86) 10%, rgb(11, 12, 34) 100%);
+        color: #f1f1f1;
+        padding: 40px 0.2vw;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        justify-content: space-around;
+        text-align: left;
+    }
+
+    /* Layout container */
+    .footer-container {
+        display: flex;
+        padding: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: top;
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    .group1 {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        flex-direction: row;
+    }
+
+    /* Header styling */
+    footer h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #ffffff;
+        border-bottom: 2px solid #ffffff;
+        padding-bottom: 10px;
+    }
+
+    .logoiiti {
+        justify-content: center;
+    }
+
+    .logoiiti img {
+        width: 20em;
+    }
+
+    /* Map iframe */
+    iframe {
+        aspect-ratio: 4/3;
+        width: 70%;
+        border: none;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        margin-top: 10px;
+    }
+
+    /* Address section */
+    .h3 {
+        margin-bottom: 5px;
+        font-size: 1.2em;
+        color: #ffffff;
+    }
+
+    .text p {
+        font-size: 1em;
+        color: #cccccc;
+    }
+
+    footer a {
+        color: #b5b5b5;
+        text-decoration: none;
+        font-size: 1.1em;
+    }
+
+    footer a:hover {
+        color: #ffffff;
+    }
+
+    .social-icons img {
+        margin-left: 0;
+        margin-right: 13px;
+        width: 30px;
+        aspect-ratio: 1/1;
+        justify-content: center;
+        font-size: 1.5em;
+        display: block;
+
+    }
+
+    .social-icons a {
+        display: inline-block;
+        padding: 0;
+
+        width: 30px;
+        margin-left: 0;
+        margin-right: 13px;
+
+    }
+
+    @media(max-width:675px) {
+        footer {
+            flex-direction: column;
+        }
+        iframe{
+            width:50%;
+        }
+    }
+</style>
+<footer id="footer">
+    <div class="footer-container logoiiti">
+        <img src="files/images/iiti_logo.png" alt="logo">
+
+
+    </div>
+    <div class="footer-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.4545692463175!2d75.92056217512514!3d22.52463847952599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962efcccbce7145%3A0x784e8cb69818596b!2sIndian%20Institute%20of%20Technology%20Indore!5e0!3m2!1sen!2sin!4v1742749091048!5m2!1sen!2sin"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div class="text" style="margin: 5px 0; width: 70%;">
+            <div style="display: flex; align-items: center; ">
+                <img src="files/social-icons/address_icon.png" alt="Address Icon" style="height: 20px;">
+                <h3 style="margin: 0;">Address</h3>
+            </div>
+            <p style="margin-top:2px;">
+                Khandwa Road, Simrol, Indore, Madhya Pradesh, 453552
+            </p>
+        </div>
+
+
+    </div>
+
+    <div class="footer-container">
+        <p style="margin: 5px 0; font-size:1.2em;"><b>CONTACT US</b></p>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 2px 0;">
+            <p style="margin: 0; font-size: 1em;"><b>🖂Email:</b></p>
+        </div>
+        <a href="mailto:info@iiti.ac.in" style="font-size: 1em; margin-bottom: 8px;">info@iiti.ac.in</a>
+
+        <h3 style="margin: 5px 0;">Follow Us</h3>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/school/iit-indore/" target="_blank"><img
+                    src="files/social-icons/linkedin_logo.webp" alt=""></a>
+            <a href="https://www.instagram.com/iitindoreofficial/" target="_blank"><img
+                    src="files/social-icons/ig_logo.webp" alt=""></a>
+            <a href="https://twitter.com/IITIOfficial" target="_blank"><img src="files/social-icons/x_logo.jpg"
+                    alt=""></a>
+            <a href="https://www.facebook.com/profile.php?id=100064798209779" target="_blank"><img
+                    src="files/social-icons/fb_logo.webp" alt=""></a>
+        </div>
+    </div>
+</footer>
