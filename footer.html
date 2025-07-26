@@ -1,161 +1,252 @@
-<style>
-    /* Footer base styling */
-    html,
-    body {
-        padding: 0;
-        margin: 0;
+<footer id="CONTACT">
+  <style>
+    /* Container */
+    #CONTACT {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 60px 20px 40px;
+      position: relative;
+      overflow: hidden;
     }
-
-    footer {
-        margin-top: 50px;
-        display: flex;
-        margin: auto;
-        background: linear-gradient(to bottom, #fffaf5 0%, rgb(0, 4, 86) 10%, rgb(11, 12, 34) 100%);
-        color: #f1f1f1;
-        padding: 40px 0.2vw;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        justify-content: space-around;
-        text-align: left;
+    /* Top accent bar */
+    #CONTACT::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #1e3a8a);
     }
-
-    /* Layout container */
-    .footer-container {
-        display: flex;
-        padding: 0;
-        flex-direction: column;
-        align-items: center;
-        justify-content: top;
-        text-align: left;
-        margin-bottom: 0;
+    /* Section title */
+    #CONTACT h1 {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 50px;
+      color: #1f2937;
+      position: relative;
+      display: inline-block;
     }
-
-    .group1 {
-        display: flex;
-        padding: 0;
-        margin: 0;
-        flex-direction: row;
+    #CONTACT h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+      border-radius: 2px;
     }
-
-    /* Header styling */
-    footer h1 {
-        font-size: 2em;
-        margin-bottom: 20px;
-        color: #ffffff;
-        border-bottom: 2px solid #ffffff;
-        padding-bottom: 10px;
+    /* Grid container */
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 40px;
+      align-items: start;
     }
-
-    .logoiiti {
-        justify-content: center;
+    /* Card base */
+    .contact-section {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    .logoiiti img {
-        width: 20em;
+    .contact-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(30,58,138,0.15);
     }
-
-    /* Map iframe */
-    iframe {
-        aspect-ratio: 4/3;
-        width: 70%;
-        border: none;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        margin-top: 10px;
+    /* Left column */
+    .contact-left { text-align: center; }
+    .contact-left .logo-container {
+      display: inline-block;
+      margin-bottom: 20px;
     }
-
-    /* Address section */
-    .h3 {
-        margin-bottom: 5px;
-        font-size: 1.2em;
-        color: #ffffff;
+    .contact-left img {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 3px solid #1e3a8a;
+      padding: 8px;
+      background: #fff;
+      transition: transform 0.3s ease;
     }
-
-    .text p {
-        font-size: 1em;
-        color: #cccccc;
+    .contact-left img:hover {
+      transform: scale(1.1);
     }
-
-    footer a {
-        color: #b5b5b5;
-        text-decoration: none;
-        font-size: 1.1em;
+    .contact-left h2 {
+      font-size: 20px; font-weight: 600;
+      margin: 0; color: #1f2937; line-height: 1.4;
     }
-
-    footer a:hover {
-        color: #ffffff;
+    .contact-left .department {
+      font-size: 16px; color: #1e3a8a;
+      font-weight: 500; margin-top: 8px;
     }
-
-    .social-icons img {
-        margin-left: 0;
-        margin-right: 13px;
-        width: 30px;
-        aspect-ratio: 1/1;
-        justify-content: center;
-        font-size: 1.5em;
-        display: block;
-
+    /* Center column */
+    .contact-center h3 {
+      font-size: 18px; font-weight: 600;
+      margin-bottom: 15px; color: #1f2937;
+      display: flex; align-items: center; gap: 8px;
     }
-
+    .contact-center iframe {
+      width: 100%; height: 220px;
+      border: 0; border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .contact-center .address-info {
+      background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
+      padding: 20px; border-radius: 12px;
+      border-left: 4px solid #1e3a8a;
+    }
+    .contact-center p {
+      font-size: 15px; line-height: 1.6;
+      margin: 0; color: #4b5563;
+    }
+    /* Right column */
+    .contact-right {
+    bottom: 1000px;
+    }
+    .contact-right h3 {
+      font-size: 18px; font-weight: 600;
+      margin-bottom: 15px; color: #1f2937;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .contact-right .email-section {
+      margin-bottom: 30px;
+    }
+    .contact-right .email-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+      color: #fff; text-decoration: none;
+      padding: 12px 20px; border-radius: 8px;
+      font-weight: 500; font-size: 14px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .contact-right .email-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30,58,138,0.3);
+      background: linear-gradient(45deg, #1e2a5a, #1e3a8a);
+    }
+    /* Social icons */
+    .social-section h3 {
+      margin-bottom: 20px;
+    }
+    .social-icons {
+      display: flex; gap: 15px; flex-wrap: wrap;
+    }
     .social-icons a {
-        display: inline-block;
-        padding: 0;
-
-        width: 30px;
-        margin-left: 0;
-        margin-right: 13px;
-
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      width: 45px; height: 45px;
+      background: linear-gradient(45deg, #f8fafc, #e2e8f0);
+      border: 2px solid #cbd5e1; border-radius: 50%;
+      color: #4b5563; font-size: 20px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    @media(max-width:675px) {
-        footer {
-            flex-direction: column;
-        }
-        iframe{
-            width:50%;
-        }
+    .social-icons a::before {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+      transition: left 0.3s ease;
+      z-index: -1;
     }
-</style>
-<footer id="footer">
-    <div class="footer-container logoiiti">
-        <img src="files/images/iiti_logo.png" alt="logo">
+    .social-icons a:hover::before {
+      left: 0;
+    }
+    .social-icons a:hover {
+      color: #fff; box-shadow: 0 6px 20px rgba(30,58,138,0.3);
+      transform: translateY(-3px);
+      border-color: #1e3a8a;
+    }
+    /* Footer bottom */
+    .footer-bottom {
+      margin-top: 50px; padding-top: 30px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .footer-bottom p {
+      color: #6b7280; font-size: 14px; margin: 0;
+    }
+    /* Responsive */
+    @media (max-width: 968px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      #CONTACT {
+        padding: 40px 15px 30px;
+      }
+      #CONTACT h1 {
+        font-size: 28px; margin-bottom: 35px;
+      }
+    }
+    @media (max-width: 640px) {
+      .contact-section {
+        padding: 20px 15px;
+      }
+      .social-icons {
+        justify-content: center;
+      }
+      .contact-center iframe {
+        height: 180px;
+      }
+    }
+  </style>
 
+  <h1>Contact Us</h1>
 
+  <div class="contact-container">
+    <!-- Left Column -->
+    <div class="contact-section contact-left">
+      <div class="logo-container">
+        <img src="images/logo1.webp" alt="IIT Indore Logo">
+      </div>
+      <h2>Indian Institute of Technology Indore</h2>
+      <p class="department">Department of Physics</p>
     </div>
-    <div class="footer-container">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.4545692463175!2d75.92056217512514!3d22.52463847952599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962efcccbce7145%3A0x784e8cb69818596b!2sIndian%20Institute%20of%20Technology%20Indore!5e0!3m2!1sen!2sin!4v1742749091048!5m2!1sen!2sin"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-        <div class="text" style="margin: 5px 0; width: 70%;">
-            <div style="display: flex; align-items: center; ">
-                <img src="files/social-icons/address_icon.png" alt="Address Icon" style="height: 20px;">
-                <h3 style="margin: 0;">Address</h3>
-            </div>
-            <p style="margin-top:2px;">
-                Khandwa Road, Simrol, Indore, Madhya Pradesh, 453552
-            </p>
-        </div>
-
-
+    <!-- Center Column -->
+    <div class="contact-section contact-center">
+      <h3>📍 Our Location</h3>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.4545692463175!2d75.92056217512514!3d22.52463847952599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962efcccbce7145%3A0x784e8cb69818596b!2sIndian%20Institute%20of%20Technology%20Indore!5e0!3m2!1sen!2sin!4v1742749091048!5m2!1sen!2sin"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+      <div class="address-info">
+        <h3>📧 Address</h3>
+        <p>Khandwa Road, Simrol, Indore, Madhya Pradesh 453552</p>
+      </div>
     </div>
 
-    <div class="footer-container">
-        <p style="margin: 5px 0; font-size:1.2em;"><b>CONTACT US</b></p>
-        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin: 2px 0;">
-            <p style="margin: 0; font-size: 1em;"><b>🖂Email:</b></p>
-        </div>
-        <a href="mailto:info@iiti.ac.in" style="font-size: 1em; margin-bottom: 8px;">info@iiti.ac.in</a>
-
-        <h3 style="margin: 5px 0;">Follow Us</h3>
+    <!-- Right Column -->
+    <div class="contact-section contact-right">
+      <div class="email-section">
+        <h3>📧 Get In Touch</h3>
+        <a href="mailto:info@iiti.ac.in" class="email-link">✉️ info@iiti.ac.in</a>
+      </div>
+      <div class="social-section">
+        <h3>🌐 Follow Us</h3>
         <div class="social-icons">
-            <a href="https://www.linkedin.com/school/iit-indore/" target="_blank"><img
-                    src="files/social-icons/linkedin_logo.webp" alt=""></a>
-            <a href="https://www.instagram.com/iitindoreofficial/" target="_blank"><img
-                    src="files/social-icons/ig_logo.webp" alt=""></a>
-            <a href="https://twitter.com/IITIOfficial" target="_blank"><img src="files/social-icons/x_logo.jpg"
-                    alt=""></a>
-            <a href="https://www.facebook.com/profile.php?id=100064798209779" target="_blank"><img
-                    src="files/social-icons/fb_logo.webp" alt=""></a>
+          <a href="https://www.facebook.com/IITIndoreOfficial/" target="_blank" title="Facebook">🌐</a>
+          <a href="https://twitter.com/IITIOfficial" target="_blank" title="Twitter">🐦</a>
+          <a href="https://www.linkedin.com/school/iit-indore/" target="_blank" title="LinkedIn">🔗</a>
+          <a href="https://www.instagram.com/iiti_official/" target="_blank" title="Instagram">📷</a>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Department of Physics, IIT Indore. All rights reserved.</p>
+  </div>
 </footer>
