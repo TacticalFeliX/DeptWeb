@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Theoretical High Energy Physics</title>
+    <title>Experimental Condensed Matter Physics</title>
     <link rel="stylesheet" href="facultystyle.css" />
     <style>
         body {
@@ -26,16 +26,6 @@
             text-align: center;
         }
 
-        .slider-placeholder {
-            height: 280px;
-            background-color: #e0d2c0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8a4c0f;
-            font-size: 1.2em;
-        }
-
         .content {
             max-width: 950px;
             margin: 40px auto;
@@ -52,46 +42,72 @@
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 1.5em;
         }
 
         h2 {
-            font-size: 1.8em;
+            font-size: 1.3em;
             margin-top: 40px;
         }
 
         ul {
             margin-left: 20px;
         }
+
     </style>
 </head>
 
 <body>
     <div id="navbar-container"></div>
 
-  <script>
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('navbar-container').innerHTML = data);
-  </script>
-
-    <div class="slider-placeholder">
-        [ Image Slider Placeholder – Add Images Here ]
-    </div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+    </script>
 
     <div class="content">
-        <h1>Experimental High Energy Physics</h1>
+        <h1>Experimental Condensed Matter Physics</h1>
 
         <p>
-            ----
+            The Experimental Condensed Matter Physics group at IIT Indore focuses on understanding and innovating the
+            structural, electronic, magnetic, and optical properties of materials. Our research spans nanomaterials,
+            thin films, spectroscopy, and more, pushing the boundaries of material science and its applications in
+            technology.
+        </p>
+
+        <p>
+            The groups are highly equipped with the following high-end research equipment (to name a few):
+        </p>
+
+        <ul>
+            <li>Thin Film Deposition Units</li>
+            <li>Terahertz Spectroscopy Instruments</li>
+            <li>X-ray Absorption Fine Structure (XAFS) Setup</li>
+            <li>Nanomaterial Synthesis Labs</li>
+            <li>Surface and Interface Characterization Tools</li>
+        </ul>
+
+        <p>
+            This section consists of different research groups led by dedicated faculty members specializing in distinct
+            aspects of condensed matter physics and materials science.
         </p>
     </div>
     <div id="selected-container" class="faculty-grid"></div>
 
-  
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script>
-        const selectedIds = ['prof-raghunath-sahoo','prof-ankhi-roy'];
+        const selectedIds = [
+            'prof-krushna-mavani',
+            'prof-rajesh-kumar',
+            'prof-pankaj-sagdeo',
+            'prof-preeti-bhobe',
+            'prof-somaditya-sen',
+            'prof-sudeshna-chattopadhyay',
+            'prof-onkar-game',
+            'prof-naresh-kumar-kumawat',
+            'prof-bivas-dutta'
+        ];
 
         fetch('files/faculty.csv')
             .then(response => response.text())
@@ -135,7 +151,9 @@
                     "<p style='color:red;'>Failed to load faculty data.</p>";
             });
     </script>
-  <div id="footer-placeholder"></div>
+
+
+    <div id="footer-placeholder"></div>
 
     <script>
         fetch("footer.html")
@@ -144,7 +162,7 @@
                 document.getElementById("footer-placeholder").innerHTML = data;
             });
     </script>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
