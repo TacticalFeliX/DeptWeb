@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Students Corner</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    h1,
+    h2 {
+      text-align: center;
+    }
+    .btncontainer{
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #89837a;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 1em;
+      font-weight: bold;
+      color: white;
+      background-color: #2678c5;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #2678c5;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('navbar-container').innerHTML = data);
+  </script>
+
+  
+  <div class="btncontainer">
+    <h1>Students Corner</h1>
+    <h2>BTech Students</h2>
+    <div class="buttons">
+      <a href="students_corner/btechy1.html" class="btn">BTech 1 Students</a>
+      <a href="students_corner/btechy2.html" class="btn">BTech 2 Students</a>
+      <a href="students_corner/btechy3.html" class="btn">BTech 3 Students</a>
+      <!-- <a href="students_corner/btechy4.html" class="btn">BTech 4 Students</a> -->
+    </div>
+
+    <h2>MSc Students</h2>
+    <div class="buttons">
+      <a href="students_corner/mscy1.html" class="btn">MSc 1 Students</a>
+      <a href="students_corner/mscy2.html" class="btn">MSc 2 Students</a>
+    </div>
+
+    <h2>PhD Students</h2>
+    <div class="buttons">
+      <a href="students_corner/phdstuy1.html" class="btn">PhD 1 Students</a>
+      <a href="students_corner/phdstuy2.html" class="btn">PhD 2 Students</a>
+      <a href="students_corner/phdstuy3.html" class="btn">PhD 3 Students</a>
+      <a href="students_corner/phdstuy4.html" class="btn">PhD 4 Students</a>
+      <a href="students_corner/phdstuy5.html" class="btn">PhD 5 Students</a>
+      <a href="students_corner/phdstuy6.html" class="btn">PhD 6 Students</a>
+      <a href="students_corner/phdstuy7.html" class="btn">PhD 7 Students</a>
+      <a href="students_corner/gradphds.html" class="btn">Graduated PhD Students</a>
+    </div>
+
+    <h2>MScPhD Students</h2>
+    <div class="buttons">
+      <a href="students_corner/mscphd.html" class="btn">MScPhD Students</a>
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>

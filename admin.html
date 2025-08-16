@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administration</title>
+    <link rel="stylesheet" href="peoplestyle.css">
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('navbar-container').innerHTML = data);
+  </script>
+  <div class="container">
+    <h1>Administrative Team</h1>
+    <div class="admin-grid">
+
+      <div class="admin-card">
+        <img src="files/admin-images/director.jpg" alt="Mr. Rahul Navgire" />
+        <div class="admin-name">Mr. Rahul Navgire</div>
+        <div class="admin-info">
+          <p><i>Jr. Superintendent</i></p>
+          <p> Mr. Rahul serves as a Jr. Superintendent, overseeing the department’s paperwork and administrative
+            processes with exceptional efficiency.</p>
+          <p><b>Email:</b> rnavgire@iiti.ac.in</p>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <img src="files/admin-images/mrprashant.jpeg" alt="Mr. Prashant Gupta" />
+        <div class="admin-name">Mr. Prashant Gupta</div>
+        <div class="admin-info">
+          <p><i>Junior Lab Assistant</i></p>
+          <p> Mr. Prashant Gupta plays an essential role as technical staff in ensuring the smooth functioning of the
+            undergraduate and postgraduate laboratories.</p>
+          <p><b>Office Address:</b> PoD 1E 205 B-Tech Physics Laboratory</p>
+          <p><b>Phone:</b> 0731-660 Ext. 3380</p>
+          <p><b>Email:</b> prashantgupta@iiti.ac.in</p>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <img src="files/admin-images/mrnitin.jpg" alt="Dr. Nitin Upadhyay" />
+        <div class="admin-name">Dr. Nitin Upadhyay</div>
+        <div class="admin-info">
+          <p><i>Senior Lab Assistant</i></p>
+          <p> Dr. Nitin Upadhyay is a key technical staff member responsible for ensuring the smooth functioning of the
+            department’s research laboratories.</p>
+          <p><b>Office Address:</b> Hydrogen Building</p>
+          <p><b>Phone:</b> 0731-660, Ext: 3406</p>
+          <p><b>Email:</b> nitinu@iiti.ac.in</p>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <img src="files/admin-images/mrvedprakash.jpg" alt="Mr. Ved Prakash" />
+        <div class="admin-name">Mr. Ved Prakash</div>
+        <div class="admin-info">
+          <p><i>Attendant</i></p>
+          <p>Mr. Ved Prakash is a senior clerk who ensures a seamless movement of official documents from the department
+            to various offices across the institute.</p>
+          <p><b>Office Address: </b>PoD 1D 602 (Physics Office)</p>
+          <p><b>Phone:</b> 0731-660 Ext: 3417</p>
+          <p><b>Email:</b></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>

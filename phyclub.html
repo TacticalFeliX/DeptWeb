@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Physics Club | IIT Indore</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .contact {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .contact a {
+      color: #8a4c0f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('navbar-container').innerHTML = data);
+  </script>
+
+  <div class="container">
+    <h1>Physics Club, IIT Indore</h1>
+
+    <p>
+      The Physics Club of IIT Indore is an academic initiative that provides an interactive platform for students to
+      delve into the fascinating world of physics beyond the classroom. Since its establishment on 29th August 2022, the
+      club has aimed to build a vibrant community of physics enthusiasts, fostering exploration, discussion, and
+      experimentation.
+    </p>
+
+    <p>
+      Over the years, the club has successfully hosted monthly events funded by the Department of Physics, celebrating a
+      shared passion for the subject.
+    </p>
+
+    <h2>Vision & Events</h2>
+    <p>
+      Our team is driven by a commitment to innovation and excellence, dedicated to organizing events that inspire and
+      engage. We also commemorate significant occasions like National Science Day, ensuring a mix of educational and
+      celebratory activities.
+    </p>
+
+    <h2>Leadership and Guidance</h2>
+    <p>
+      The Physics Club has two Faculty Advisors: <strong>Dr. Alestin Mawrie</strong> and <strong>Dr. Onkar
+        Game</strong>. These esteemed faculty members provide valuable guidance for major events and initiatives
+      undertaken by the club.
+    </p>
+
+    <h2>Student Coordinators</h2>
+    <ul>
+      <li>Pramanik Supriyo (Head)</li>
+      <li>Mansi Singh (Co head)</li>
+      <li>Rishab Tiwari (Core Member)</li>
+    </ul>
+
+    <div class="contact">
+      <p>
+        For any inquiries or to get involved, feel free to reach out to us at
+        <a href="mailto:physics_club@iiti.ac.in">physics_club@iiti.ac.in</a>.
+      </p>
+      <p>Join us in celebrating the joy of physics and become part of a thriving community of curious minds!</p>
+    </div>
+  </div>
+  <div id="footer-placeholder"></div>
+
+    <script>
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer-placeholder").innerHTML = data;
+            });
+    </script>
+  <script src="script.js"></script>
+</body>
+
+</html>

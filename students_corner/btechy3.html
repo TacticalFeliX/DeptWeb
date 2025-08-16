@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTECH STUDENTS</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="../peoplestyle.css">
+</head>
+
+<body>
+    <div id="navbar-container"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+    </script>
+    <div class="sub-navbar">
+        <a href="../stucorner.html">Students Corner</a>
+        <a href="btechy1.html">BTECH BATCH 2029</a>
+        <a href="btechy2.html">BTECH BATCH 2028</a>
+        <a href="btechy3.html" class="selected">BTECH BATCH 2027</a>
+    </div>
+
+    <div class="container">
+        <center>
+            <h2>BTECH BATCH 2027</h2>
+        </center>
+
+
+
+        <div class="student-grid" id="student-grid"></div>
+    </div>
+    <script>
+        const targetProgram = "BTech";
+        const targetYear = 3;
+
+        fetch('studetails.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    transformHeader: h => h.trim(),
+                    complete: function (results) {
+                        const studentData = results.data;
+                        const container = document.getElementById('student-grid');
+
+                        studentData.forEach(student => {
+                            if (
+                                student.Program?.trim().toLowerCase() === targetProgram.toLowerCase() &&
+                                Number(student.Year) === targetYear
+                            ) {
+                                const card = document.createElement('div');
+                                card.className = 'student-card';
+
+                                card.innerHTML = `
+                                <img src="stuimages/${student.imgsource.trim()}" alt="${student.Name}" />
+                                <div class="student-details">
+                                    <p class="student-name">${student.Name}</p>
+                                    <p class="student-roll">${student.RollNo}</p>
+                                </div>
+                            `;
+
+                                container.appendChild(card);
+                            }
+                        });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error("Failed to load or render student data:", error);
+                document.getElementById('student-grid').innerHTML =
+                    "<p style='color:red;'>Failed to load student data.</p>";
+            });
+    </script>
+
+    <div id="footer-placeholder"></div>
+    <script>
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer-placeholder").innerHTML = data;
+            });
+    </script>
+    
+    
+  <script src="script.js"></script>
+</body>
+
+</html>

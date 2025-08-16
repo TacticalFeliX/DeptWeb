@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graduated Ph.D. Students | Department of Physics</title>
+  <style>
+    html,
+    body {
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 4vw;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      padding: 1vw;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: auto;
+      height: 60vh;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Firefox */
+    .table-wrapper {
+      scrollbar-width: thin;
+      scrollbar-color: #c2b9b0 #f0e8df;
+    }
+
+    /* WebKit (Chrome, Safari, Edge) */
+    .table-wrapper::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background-color: #c2b9b0;
+      border-radius: 6px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-track {
+      background: #f0e8df;
+    }
+
+
+    h1,
+    h2 {
+      text-align: center;
+      color: #2678c5;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1em;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+      margin-top: 30px;
+      background-color: #ffffff;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    }
+
+    th,
+    td {
+      padding: 0px 16px;
+      text-align: left;
+      font-size: 0.7em;
+      border-bottom: 1px solid #e0dcd6;
+    }
+
+    th {
+      background-color: #e6dacf;
+      color: #5a3208;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f7f2ec;
+    }
+
+    .search-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    
+    .sub-navbar {
+        background-color: rgb(255, 250, 240);
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        padding: 10px 0;
+        font-size: 0.8em;
+    }
+
+    .sub-navbar a {
+        color: #5a3208;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .sub-navbar a:hover {
+        color: rgb(0, 0, 0);
+    }
+
+    a.selected {
+        color: #2678c5;
+        text-decoration: underline;
+        border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('navbar-container').innerHTML = data);
+  </script>
+  <div class="sub-navbar">
+    <a href="../stucorner.html">Students Corner</a>
+    <a href="phdstuy1.html">PHD YEAR 1</a>
+    <a href="phdstuy2.html">PHD YEAR 2</a>
+    <a href="phdstuy3.html">PHD YEAR 3</a>
+    <a href="phdstuy4.html">PHD YEAR 4</a>
+    <a href="phdstuy5.html">PHD YEAR 5</a>
+    <a href="phdstuy6.html">PHD YEAR 6</a>
+    <a href="gradphds.html" class="selected">GRADUATED PHDS</a>
+  </div>
+  <div class="container">
+    <h1>Graduated PhD Students</h1>
+    <div class="search-wrapper">
+      <input type="text" id="facultySearch" placeholder="Search Faculty..." />
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Present Status</th>
+            <th>Program</th>
+            <th>Graduation Year</th>
+            <th>Supervisor</th>
+            <th>Thesis Title</th>
+          </tr>
+        </thead>
+        <tbody id="phdTableBody">
+          <!-- Content will be inserted here dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script>
+    // Load and parse CSV
+    fetch('../files/phds.csv')
+      .then(response => response.text())
+      .then(csv => {
+        const data = Papa.parse(csv, { header: true }).data;
+        const tbody = document.getElementById('phdTableBody');
+        data.forEach((row, index) => {
+          if (row.Name) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${row.Name}</td>
+            <td>${row.Status}</td>
+            <td>${row.Program}</td>
+            <td>${row.GraduationYear}</td>
+            <td>${row.Supervisor}</td>
+            <td>${row.ThesisTitle}</td>
+          `;
+            tbody.appendChild(tr);
+          }
+        });
+      });
+
+    // Search filter
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll('#phdTableBody tr');
+
+      let visibleIndex = 0;
+      rows.forEach(row => {
+        if (row.textContent.toLowerCase().includes(filter)) {
+          row.style.display = '';
+          row.style.backgroundColor = (visibleIndex % 2 === 0) ? '#fff' : '#f7f2ec';
+          visibleIndex++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    });
+
+  </script>
+
+
+  <script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll('table tbody tr');
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(filter) ? '' : 'none';
+      });
+    });
+  </script>
+  <div id="footer-placeholder"></div>
+  <script>
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>

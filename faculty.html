@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty</title>
+  <link rel="stylesheet" href="peoplestyle.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+</head>
+
+<body>
+  <div id="navbar-container"></div>
+
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('navbar-container').innerHTML = data);
+  </script>
+  <div class="container">
+    <h1>Faculty Members</h1>
+    <div class="search-wrapper">
+      <input type="text" id="facultySearch" placeholder="Search Faculty..." />
+    </div>
+
+    <div class="faculty-grid" id="faculty-grid"></div>
+
+  </div>
+  <script>
+    fetch('files/faculty.csv')
+      .then(response => {
+        if (!response.ok) throw new Error("CSV file not found or can't be loaded.");
+        return response.text();
+      })
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function (results) {
+            const facultyData = results.data;
+            const grid = document.getElementById('faculty-grid');
+            grid.innerHTML = '';
+
+            facultyData.forEach(person => {
+              const card = document.createElement('div');
+              card.className = 'faculty-card';
+
+              // Split ResearchDivision and SiteLink
+              const domains = (person.ResearchDivision || '').split(';').map(d => d.trim());
+              const links = (person.SiteLink || '').split(';').map(l => l.trim());
+
+              // Generate linked domains
+              const researchDomains = domains.map((domain, index) => {
+                const link = links[index] ? `${links[index]}.html` : '#';
+                return `<p><a href="${link}" class="research-link" style="text-decoration: none; color: inherit;">${domain}</a></p>`;
+              }).join('');
+
+
+              card.innerHTML = `
+              <img src="files/prof-images/${person.ImageFile}" alt="${person.Name}" />
+              <div class="faculty-name">${person.Name}</div>
+              <div class="faculty-info">
+                <p><i>${person.Position}</i></p>
+                <p><strong>Research Domain:</strong></p>
+                ${researchDomains}
+                <p><strong>Email:</strong> <a href="mailto:${person.Email}" style="text-decoration: none; color: inherit;">${person.Email}</a></p>
+                <p><strong>Phone:</strong> ${person.Phone || 'N/A'}</p>
+                <p><strong>Office Address:</strong> ${person.OffAdd || 'N/A'}</p>
+              </div>
+              ${person.ReadMoreURL ? `<a class="read-more" href="${person.ReadMoreURL}" target="_blank">Read more</a>` : ''}
+            `;
+
+              grid.appendChild(card);
+            });
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Failed to load CSV:", error);
+        document.getElementById('faculty-grid').innerHTML = "<p style='color:red;'>Failed to load faculty data.</p>";
+      });
+  </script>
+
+
+
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    document.getElementById('facultySearch').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      const cards = document.querySelectorAll('.faculty-card');
+
+      cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(filter) ? 'block' : 'none';
+      });
+    });
+    fetch("footer.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>

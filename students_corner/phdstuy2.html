@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PHD STUDENTS</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="../peoplestyle.css">
+</head>
+<body>
+    <div id="navbar-container"></div>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+    </script>
+    <div class="sub-navbar">
+        <a href="../stucorner.html">Students Corner</a>
+        <a href="phdstuy1.html">PHD YEAR 1</a>
+        <a href="phdstuy2.html" class="selected">PHD YEAR 2</a>
+        <a href="phdstuy3.html">PHD YEAR 3</a>
+        <a href="phdstuy4.html">PHD YEAR 4</a>
+        <a href="phdstuy5.html">PHD YEAR 5</a>
+        <a href="phdstuy6.html">PHD YEAR 6</a>
+        <a href="phdstuy7.html">PHD YEAR 7</a>
+        <a href="gradphds.html">GRADUATED PHDS</a>
+    </div>
+    <div class="container">
+        <center>
+            <h2>PhD 2ND YEAR STUDENTS</h2>
+        </center>
+
+ 
+
+    <div class="student-grid" id="student-grid"></div>
+   </div>
+    <script>
+        const targetProgram = "PhD";
+        const targetYear = 2;
+
+        fetch('studetails.csv')
+            .then(response => response.text())
+            .then(csvText => {
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    transformHeader: h => h.trim(),
+                    complete: function (results) {
+                        const studentData = results.data;
+                        const container = document.getElementById('student-grid');
+
+                        studentData.forEach(student => {
+                            if (
+                                student.Program?.trim().toLowerCase() === targetProgram.toLowerCase() &&
+                                Number(student.Year) === targetYear
+                            ) {
+                                const card = document.createElement('div');
+                                card.className = 'student-card';
+
+                                card.innerHTML = `
+                                <img src="stuimages/${student.imgsource.trim()}" alt="${student.Name}" />
+                                <div class="student-details">
+                                    <p class="student-name">${student.Name}</p>
+                                    <p class="student-roll">${student.RollNo}</p>
+                                </div>
+                            `;
+
+                                container.appendChild(card);
+                            }
+                        });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error("Failed to load or render student data:", error);
+                document.getElementById('student-grid').innerHTML =
+                    "<p style='color:red;'>Failed to load student data.</p>";
+            });
+    </script>
+
+    <div id="footer-placeholder"></div>
+    <script>
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer-placeholder").innerHTML = data;
+            });
+    </script>
+    
+  <script src="script.js"></script>
+</body>
+
+</html>
