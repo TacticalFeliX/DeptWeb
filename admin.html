@@ -1,87 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Administration</title>
-    <link rel="stylesheet" href="peoplestyle.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Physics - Main Content</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- REQUIRED LIBRARIES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <style>
+        /* --- Base Styles & Resets --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #1e293b; /* slate-800 */
+        }
+
+        .font-serif {
+            font-family: 'Lora', serif;
+        }
+        
+        /* --- Main Content Styles --- */
+        .main-content {
+            /* This can be removed if you don't have a fixed header */
+            /* padding-top: 6rem; */ 
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .hero-canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .hero-canvas-container {
+                display: block;
+            }
+        }
+        
+        .hero-text-container {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-text-container {
+                padding: 4rem;
+                grid-column-start: 2;
+            }
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4.5rem;
+            }
+        }
+        
+        .hero-subtitle {
+            margin-top: 1.5rem;
+            font-size: 1.5rem;
+            color: #475569;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-subtitle {
+                font-size: 2rem;
+            }
+        }
+        
+        .hero-subtitle .typed-text {
+            color: #2563eb;
+            font-weight: 600;
+        }
+        
+        .hero-button {
+            margin-top: 2.5rem;
+            display: inline-block;
+            background-color: #2563eb;
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-size: 1.125rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-button:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        /* --- Content Sections --- */
+        .content-wrapper {
+            max-width: 80rem;
+            margin: auto;
+            padding: 6rem 1rem;
+            display: grid;
+            gap: 6rem;
+        }
+        
+        .content-section {
+            display: grid;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .content-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .section-pretitle {
+            color: #2563eb;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-text {
+            font-size: 1.125rem;
+            color: #475569;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+        
+        .image-container {
+            position: relative;
+            height: 24rem;
+        }
+        
+        .image-bg-shape {
+            position: absolute;
+            inset: 0;
+            background-color: #e2e8f0;
+            border-radius: 0.5rem;
+            transform: rotate(3deg);
+        }
+        
+        .image-container img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .research-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .research-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .research-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .research-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        
+        .research-card .image-wrapper {
+            height: 14rem;
+            overflow: hidden;
+        }
+        
+        .research-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .research-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .research-card .card-content {
+            padding: 1.5rem;
+        }
+        
+        .research-card .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .research-card .card-description {
+            color: #475569;
+        }
+        
+        .animated-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
 <body>
-  <div id="navbar-container"></div>
-
-  <script>
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('navbar-container').innerHTML = data);
-  </script>
-  <div class="container">
-    <h1>Administrative Team</h1>
-    <div class="admin-grid">
-
-      <div class="admin-card">
-        <img src="files/admin-images/director.jpg" alt="Mr. Rahul Navgire" />
-        <div class="admin-name">Mr. Rahul Navgire</div>
-        <div class="admin-info">
-          <p><i>Jr. Superintendent</i></p>
-          <p> Mr. Rahul serves as a Jr. Superintendent, overseeing the department’s paperwork and administrative
-            processes with exceptional efficiency.</p>
-          <p><b>Email:</b> rnavgire@iiti.ac.in</p>
+    
+    <main id="main-content" class="main-content">
+        <section class="hero-section">
+          <div class="hero-canvas-container" id="three-atom-container"></div>
+          <div class="hero-text-container">
+              <h1 class="hero-title font-serif">The Frontier of Discovery</h1>
+              <p class="hero-subtitle">We are <span class="typed-text" id="typed-subtitle"></span></p>
+              <a href="#about" class="hero-button">Explore Our Work</a>
+          </div>
+        </section>
+        <div class="content-wrapper">
+          <section id="about" class="content-section animated-section">
+              <div>
+                  <p class="section-pretitle">Our Mission</p>
+                  <h2 class="section-title font-serif">Advancing Knowledge, Inspiring Minds.</h2>
+                  <p class="section-text">Established in 2009, the Department of Physics at IIT Indore is a dynamic hub of intellectual curiosity and cutting-edge research. We offer a vibrant academic environment exploring everything from the quantum realm to the vastness of the cosmos.</p>
+                  <p class="section-text">Our faculty are leaders in their fields, dedicated to both mentorship and groundbreaking discovery.</p>
+              </div>
+              <div class="image-container">
+                  <div class="image-bg-shape"></div>
+                  <img src="https://placehold.co/800x600/94A3B8/FFFFFF?text=Campus" alt="Campus"/>
+              </div>
+          </section>
+          <section class="animated-section">
+              <div class="section-header">
+                  <p class="section-pretitle">Research</p>
+                  <h2 class="section-title font-serif">Areas of Expertise</h2>
+              </div>
+              <div class="research-grid">
+                  <div class="research-card"><div class="image-wrapper"><img src="https://placehold.co/600x400/1E293B/FFFFFF?text=Quantum" alt="Quantum Information"></div><div class="card-content"><h3 class="card-title">Quantum Information</h3><p class="card-description">Exploring the future of computing and secure communication.</p></div></div>
+                  <div class="research-card"><div class="image-wrapper"><img src="https://placehold.co/600x400/0F172A/FFFFFF?text=Cosmos" alt="Cosmology & Gravity"></div><div class="card-content"><h3 class="card-title">Cosmology & Gravity</h3><p class="card-description">Investigating the origins and ultimate fate of the universe.</p></div></div>
+                  <div class="research-card"><div class="image-wrapper"><img src="https://placehold.co/600x400/334155/FFFFFF?text=Materials" alt="Materials Science"></div><div class="card-content"><h3 class="card-title">Materials Science</h3><p class="card-description">Designing novel materials with extraordinary properties.</p></div></div>
+              </div>
+          </section>
         </div>
-      </div>
+    </main>
 
-      <div class="admin-card">
-        <img src="files/admin-images/mrprashant.jpeg" alt="Mr. Prashant Gupta" />
-        <div class="admin-name">Mr. Prashant Gupta</div>
-        <div class="admin-info">
-          <p><i>Junior Lab Assistant</i></p>
-          <p> Mr. Prashant Gupta plays an essential role as technical staff in ensuring the smooth functioning of the
-            undergraduate and postgraduate laboratories.</p>
-          <p><b>Office Address:</b> PoD 1E 205 B-Tech Physics Laboratory</p>
-          <p><b>Phone:</b> 0731-660 Ext. 3380</p>
-          <p><b>Email:</b> prashantgupta@iiti.ac.in</p>
-        </div>
-      </div>
+    <script>
+        function initializeInteractiveScripts() {
+            // --- Typed.js Logic ---
+            if (typeof Typed !== 'undefined') {
+                new Typed('#typed-subtitle', {
+                    strings: ['Innovators.', 'Explorers.', 'Pioneers.'],
+                    typeSpeed: 70,
+                    backSpeed: 50,
+                    loop: true,
+                });
+            }
 
-      <div class="admin-card">
-        <img src="files/admin-images/mrnitin.jpg" alt="Dr. Nitin Upadhyay" />
-        <div class="admin-name">Dr. Nitin Upadhyay</div>
-        <div class="admin-info">
-          <p><i>Senior Lab Assistant</i></p>
-          <p> Dr. Nitin Upadhyay is a key technical staff member responsible for ensuring the smooth functioning of the
-            department’s research laboratories.</p>
-          <p><b>Office Address:</b> Hydrogen Building</p>
-          <p><b>Phone:</b> 0731-660, Ext: 3406</p>
-          <p><b>Email:</b> nitinu@iiti.ac.in</p>
-        </div>
-      </div>
+            // --- Three.js Atom Logic ---
+            if (typeof THREE !== 'undefined') {
+                const mount = document.getElementById('three-atom-container');
+                if (mount && !mount.querySelector('canvas')) {
+                    const scene = new THREE.Scene();
+                    const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
+                    
+                    // THIS IS THE FIX: Shift camera to the right to move the object left
+                    camera.position.x = 3.5; 
+                    
+                    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                    renderer.setSize(mount.clientWidth, mount.clientHeight);
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                    mount.appendChild(renderer.domElement);
+                    const group = new THREE.Group();
+                    scene.add(group);
+                    const nucleus = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5, 3), new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.4, metalness: 0.6 }));
+                    group.add(nucleus);
+                    const electronMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 1 });
+                    const orbits = [];
+                    for (let i = 0; i < 3; i++) {
+                        const orbit = new THREE.Group();
+                        const ringGeometry = new THREE.TorusGeometry(1.5 + i * 0.7, 0.02, 16, 100);
+                        const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.3 });
+                        const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+                        orbit.add(ring);
+                        const electron = new THREE.Mesh(new THREE.SphereGeometry(0.1, 32, 32), electronMaterial);
+                        electron.position.x = 1.5 + i * 0.7;
+                        orbit.add(electron);
+                        orbit.rotation.x = Math.random() * Math.PI;
+                        orbit.rotation.y = Math.random() * Math.PI;
+                        group.add(orbit);
+                        orbits.push({ orbit, speed: (Math.random() + 0.5) * 0.01 });
+                    }
+                    const pointLight = new THREE.PointLight(0xffffff, 1.5, 100);
+                    pointLight.position.set(5, 5, 5);
+                    scene.add(pointLight);
+                    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+                    camera.position.z = 5;
+                    let mouseX = 0, mouseY = 0;
+                    document.addEventListener('mousemove', (event) => {
+                        mouseX = (event.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+                        mouseY = (event.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+                    });
+                    const animate = () => {
+                        requestAnimationFrame(animate);
+                        orbits.forEach(item => { item.orbit.rotation.z += item.speed; });
+                        group.rotation.x += (-mouseY * 0.5 - group.rotation.x) * 0.02;
+                        group.rotation.y += (mouseX * 0.5 - group.rotation.y) * 0.02;
+                        renderer.render(scene, camera);
+                    };
+                    animate();
+                    window.addEventListener('resize', () => {
+                        if (mount) {
+                            camera.aspect = mount.clientWidth / mount.clientHeight;
+                            camera.updateProjectionMatrix();
+                            renderer.setSize(mount.clientWidth, mount.clientHeight);
+                        }
+                    });
+                }
+            }
 
-      <div class="admin-card">
-        <img src="files/admin-images/mrvedprakash.jpg" alt="Mr. Ved Prakash" />
-        <div class="admin-name">Mr. Ved Prakash</div>
-        <div class="admin-info">
-          <p><i>Attendant</i></p>
-          <p>Mr. Ved Prakash is a senior clerk who ensures a seamless movement of official documents from the department
-            to various offices across the institute.</p>
-          <p><b>Office Address: </b>PoD 1D 602 (Physics Office)</p>
-          <p><b>Phone:</b> 0731-660 Ext: 3417</p>
-          <p><b>Email:</b></p>
-        </div>
-      </div>
+            // --- Scroll Animation Logic ---
+            const animatedSections = document.querySelectorAll('.animated-section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            animatedSections.forEach(section => observer.observe(section));
+        }
 
-    </div>
-  </div>
-  <div id="footer-placeholder"></div>
+        window.addEventListener('load', initializeInteractiveScripts);
+    </script>
 
-  <script>
-    fetch("footer.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      });
-  </script>
-  <script src="script.js"></script>
 </body>
-
 </html>

@@ -1,4 +1,4 @@
-* {
+ {
     padding: 0;
     margin: 0;
 }
@@ -61,8 +61,6 @@ ul {
 .link:hover {
     text-decoration: underline;
 }
-
-/* sub navbar for students corner pages and research division pages */
 .sub-navbar {
     background-color: rgb(255, 250, 240);
     display: flex;
@@ -88,7 +86,6 @@ a.selected {
     text-decoration: underline;
     border-radius: 5px;
 }
-/* research page ccontent*/
 .rescontent {
     max-width: 950px;
     margin: 40px auto;
@@ -107,7 +104,6 @@ a.selected {
     height: 730px;
     width: 100%;
     aspect-ratio: 16 / 9;
-    /* Maintain image aspect ratio */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -417,8 +413,10 @@ a.selected {
 .static-text {
     font-size: 32px;
     color: #000000;
-    margin-bottom: 20px;
+    margin: 20px;
     text-align: center;
+    padding: 40px 40px;
+
 }
 
 .typed-text-container {

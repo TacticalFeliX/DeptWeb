@@ -1,318 +1,233 @@
-<footer id="CONTACT">
-  <style>
-    #CONTACT {
-      background: #ffffff;
-      color: #333;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 60px 20px 40px;
-      position: relative;
-      overflow: hidden;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer Component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base Styles & Resets --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    #CONTACT::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: #ffffff;
-    }
+        body, html {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
 
-    #CONTACT h1 {
-      text-align: center;
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 50px;
-      color: #1f2937;
-      position: relative;
-      display: inline-block;
-    }
+        /* --- Footer Styles --- */
+        .footer {
+            background-color: #0f172a; /* bg-slate-900 */
+            color: #94a3b8; /* text-slate-400 */
+            font-family: 'Inter', sans-serif;
+        }
 
-    #CONTACT h1::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: #ffffff;
-      border-radius: 2px;
-    }
+        .footer-container {
+            max-width: 80rem; /* max-w-7xl */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 4rem 1rem; /* py-16 px-4 */
+        }
 
-    .contact-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      align-items: stretch;
-      justify-content: space-between;
-    }
+        @media (min-width: 640px) {
+            .footer-container {
+                padding-left: 1.5rem; /* sm:px-6 */
+                padding-right: 1.5rem;
+            }
+        }
 
-    .contact-section {
-      background: rgba(255, 255, 255, 0.9);
-      flex: 1 1 30%;
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 30px 25px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 420px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        @media (min-width: 1024px) {
+            .footer-container {
+                padding-left: 2rem; /* lg:px-8 */
+                padding-right: 2rem;
+            }
+        }
 
-    .contact-section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(30, 58, 138, 0.15);
-    }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr)); /* grid-cols-1 */
+            gap: 2rem; /* gap-8 */
+        }
 
-    /* Left (Map) */
-    .contact-map h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #1f2937;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr)); /* md:grid-cols-4 */
+            }
+        }
 
-    .contact-map iframe {
-      width: 100%;
-      height: 200px;
-      border: 0;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
+        .footer-about {
+            grid-column: span 1 / span 1;
+        }
 
-    .address-info {
-      background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
-      padding: 20px;
-      border-radius: 12px;
-      border-left: 4px solid #1e3a8a;
-    }
+        @media (min-width: 768px) {
+            .footer-about {
+                grid-column: span 2 / span 2; /* md:col-span-2 */
+            }
+        }
 
-    .address-info p {
-      font-size: 15px;
-      line-height: 1.6;
-      margin: 0;
-      color: #4b5563;
-    }
+        .footer-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* gap-4 */
+            margin-bottom: 1rem; /* mb-4 */
+        }
 
-    /* Center (Logo) */
-    .contact-center {
-      text-align: center;
-    }
+        .footer-logo-container img {
+            height: 4rem; /* h-16 */
+            width: 4rem; /* w-16 */
+        }
 
-    .logo-container {
-      margin-bottom: 20px;
-    }
+        .footer-logo-text h2 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            color: #ffffff; /* text-white */
+        }
 
-    .logo-container img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #1e3a8a;
-      padding: 8px;
-      background: #fff;
-      transition: transform 0.3s ease;
-    }
+        .footer-logo-text p {
+            font-size: 0.875rem; /* text-sm */
+            color: #64748b; /* text-slate-500 */
+        }
 
-    .logo-container img:hover {
-      transform: scale(1.1);
-    }
+        .footer-about p {
+            font-size: 1rem; /* text-base */
+        }
 
-    .contact-center h2 {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 0;
-      color: #1f2937;
-      line-height: 2;
-    }
+        .footer-links h3 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            color: #ffffff; /* text-white */
+            letter-spacing: 0.05em; /* tracking-wider */
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
 
-    .department {
-      font-size: 16px;
-      color: #1e3a8a;
-      font-weight: 500;
-      margin-top: 8px;
-    }
+        .footer-links ul {
+            list-style: none;
+            margin-top: 1rem; /* mt-4 */
+        }
+        
+        .footer-links ul > * + * {
+            margin-top: 0.5rem; /* space-y-2 */
+        }
 
-    /* Right (Contact) */
-    .contact-right h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #1f2937;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+        .footer-links a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-    .email-section {
-      margin-bottom: 30px;
-    }
+        .footer-links a:hover {
+            color: #ffffff; /* hover:text-white */
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 0.5rem;
+        }
+        
+        .footer-contact-item span:first-child {
+            margin-top: 0.25rem; /* mt-1 */
+            margin-right: 0.5rem; /* mr-2 */
+            color: #60a5fa; /* text-blue-400 */
+        }
 
-    .email-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-      color: #fff;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: 500;
-      font-size: 14px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    }
+        .footer-map {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            border: 0;
+            margin-bottom: 1rem;
+        }
 
-    .email-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
-      background: linear-gradient(45deg, #1e2a5a, #1e3a8a);
-    }
+        .footer-bottom {
+            margin-top: 3rem; /* mt-12 */
+            border-top: 1px solid #1e293b; /* border-slate-800 */
+            padding-top: 2rem; /* pt-8 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        @media (min-width: 640px) {
+            .footer-bottom {
+                flex-direction: row; /* sm:flex-row */
+            }
+        }
 
-    .social-section h3 {
-      margin-bottom: 20px;
-    }
+        .footer-bottom p {
+            font-size: 0.875rem; /* text-sm */
+            color: #64748b; /* text-slate-500 */
+        }
 
-    .social-icons {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
+    </style>
+</head>
+<body>
 
-    .social-icons img {
-        margin-left: 0;
-        margin-right: 0px;
-        width: 30px;
-        aspect-ratio: 1/1;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5em;
-        display: block;
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        
+        <!-- About Section -->
+        <div class="footer-about">
+          <div class="footer-logo-container">
+            <img src="https://placehold.co/80x80/FFFFFF/1E293B?text=Logo" alt="Logo" />
+            <div class="footer-logo-text">
+              <h2>Department of Physics</h2>
+              <p>IIT Indore</p>
+            </div>
+          </div>
+          <p>
+            Dedicated to advancing the frontiers of physics through innovative research, rigorous education, and a commitment to scientific discovery.
+          </p>
+        </div>
 
-    }
+        <!-- Quick Links Section -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Research</a></li>
+            <li><a href="#">Academics</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
 
-    .social-icons a {
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(45deg, #f8fafc, #e2e8f0);
-      border: 2px solid #cbd5e1;
-      border-radius: 50%;
-      color: #4b5563;
-      font-size: 20px;
-      text-decoration: none;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .social-icons a::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-      transition: left 0.3s ease;
-      z-index: -1;
-    }
-
-    .social-icons a:hover::before {
-      left: 0;
-    }
-
-    .social-icons a:hover {
-      color: #fff;
-      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
-      transform: translateY(-3px);
-      border-color: #1e3a8a;
-    }
-
-    /* Footer Bottom */
-    .footer-bottom {
-      margin-top: 50px;
-      padding-top: 30px;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .footer-bottom p {
-      color: #6b7280;
-      font-size: 14px;
-      margin: 0;
-    }
-
-    @media (max-width: 968px) {
-      .contact-container {
-        flex-direction: column;
-      }
-    }
-  </style>
-
-  <center>
-    <h1>Contact Us</h1>
-  </center>
-
-  <div class="contact-container">
-    <!-- Left: Map + Address -->
-    <div class="contact-section contact-map">
-      <h3>📍 Our Location</h3>
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.4545692463175!2d75.92056217512514!3d22.52463847952599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962efcccbce7145%3A0x784e8cb69818596b!2sIndian%20Institute%20of%20Technology%20Indore!5e0!3m2!1sen!2sin!4v1742749091048!5m2!1sen!2sin"
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <div class="address-info">
-        <h3>📫 Address</h3>
-        <p>Khandwa Road, Simrol, Indore, Madhya Pradesh 453552</p>
-      </div>
-    </div>
-
-    <!-- Center: Logo + Department -->
-    <div class="contact-section contact-center">
-      <div class="logo-container">
-        <img src="files/images/logo1.webp" alt="IIT Indore Logo" />
-      </div>
-      <h2>Indian Institute of Technology Indore</h2>
-      <p class="department">Department of Physics</p>
-    </div>
-
-    <!-- Right: Contact + Social -->
-    <div class="contact-section contact-right">
-      <div class="email-section">
-        <h3>📧 Get In Touch</h3>
-        <a href="mailto:info@iiti.ac.in" class="email-link">✉️ info@iiti.ac.in</a>
-      </div>
-      <div class="social-section">
-        <h3>🌐 Follow Us</h3>
-        <div class="social-icons">
-          <a href="https://www.linkedin.com/school/iit-indore/" target="_blank"><img
-                    src="files/social-icons/linkedin_logo.webp" alt=""></a>
-            <a href="https://www.instagram.com/iitindoreofficial/" target="_blank"><img
-                    src="files/social-icons/ig_logo.webp" alt=""></a>
-            <a href="https://twitter.com/IITIOfficial" target="_blank"><img src="files/social-icons/x_logo.jpg"
-                    alt=""></a>
-            <a href="https://www.facebook.com/profile.php?id=100064798209779" target="_blank"><img
-                    src="files/social-icons/fb_logo.webp" alt=""></a>
+        <!-- Contact Us Section -->
+        <div class="footer-links">
+          <h3>Contact Us</h3>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.4545692463175!2d75.92056217512514!3d22.52463847952599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962efcccbce7145%3A0x784e8cb69818596b!2sIndian%20Institute%20of%20Technology%20Indore!5e0!3m2!1sen!2sin!4v1742749091048!5m2!1sen!2sin" 
+            class="footer-map" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <div class="address-info">
+            <div class="footer-contact-item">
+              <span>📍</span>
+              <span>Khandwa Road, Simrol, Indore, 453552</span>
+            </div>
+            <div class="footer-contact-item">
+              <span>📧</span>
+              <a href="mailto:info@iiti.ac.in">info@iiti.ac.in</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="footer-bottom">
-    <center>
-      <h4>© 2025 Department of Physics, IIT Indore. All rights reserved.</h4>
-    </center>
-    
-  </div>
-</footer>
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 Department of Physics, IIT Indore. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
