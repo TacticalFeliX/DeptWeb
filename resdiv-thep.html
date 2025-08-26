@@ -7,16 +7,13 @@
     <title>Theoretical High Energy Physics</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="peoplestyle.css" />
+    <link rel="stylesheet" href="navbar.css">
 </head>
 
 <body>
-    <div id="navbar-container"></div>
+    <header id="header" class="header"></header>
+    <div id="sidebar" class="sidebar"></div>
 
-    <script>
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('navbar-container').innerHTML = data);
-    </script>
     <div class="sub-navbar">
         <a href="resdiv-cme.html">Condensed Matter Experiment</a>
         <a href="resdiv-cmt.html">Condensed Matter Theory</a>
@@ -84,16 +81,8 @@
                     "<p style='color:red;'>Failed to load faculty data.</p>";
             });
     </script>
-    <div id="footer-placeholder"></div>
-
-    <script>
-        fetch("footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("footer-placeholder").innerHTML = data;
-            });
-    </script>
-    <script src="script.js"></script>
+    <footer id="footer" class="footer"></footer>
+    <script src="navbar.js"></script>
 </body>
 
 </html>

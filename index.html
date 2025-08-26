@@ -7,785 +7,80 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="navbar.css">
     <!-- REQUIRED LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
-    <style>
-        /* --- Base Styles & Resets --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F9FA;
-            color: #1e293b; /* slate-800 */
-        }
-        
-        body.sidebar-open {
-            overflow: hidden;
-        }
-
-        .font-serif {
-            font-family: 'Lora', serif;
-        }
-        
-        /* --- Header Styles --- */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
-        }
-
-        .header.scrolled {
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-container {
-            display: flex;
-            height: 8rem;
-            max-width: 80rem; 
-            margin: auto;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 1.5rem;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-        }
-
-        .logo-container img {
-            height: 4.5rem;
-            width: 4.5rem;
-        }
-
-        .logo-text .title {
-            font-size: 1.446rem;
-            font-weight: 700;
-            line-height: 1.25;
-            color: #0f172a;
-        }
-        
-        .header.transparent .logo-text .title {
-            color: #ffffff;
-        }
-
-        .logo-text .subtitle {
-            font-size: 0.930rem;
-            line-height: 1.25;
-            color: #64748b;
-        }
-        
-        .header.transparent .logo-text .subtitle {
-            color: #e2e8f0;
-        }
-        
-        /* --- Desktop Navigation --- */
-        .desktop-nav {
-            display: none;
-        }
-
-        /* FIX: Changed breakpoint to 1200px for better tablet/laptop support */
-        @media (min-width: 1200px) {
-            .desktop-nav {
-                display: flex;
-                align-items: center;
-                gap: 0.25rem;
-            }
-        }
-
-        .nav-item {
-            position: relative;
-        }
-
-        .nav-link {
-            padding: 0.5rem 0.75rem;
-            font-size: 1.125rem;
-            font-weight: 600;
-            transition: color 0.3s ease, background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            text-decoration: none;
-            color: #334155;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-family: inherit;
-        }
-        
-        .header.transparent .nav-link {
-            color: #ffffff;
-        }
-
-        .nav-link:hover {
-            background-color: #f1f5f9;
-        }
-        
-        .header.transparent .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-top: 0.5rem;
-            width: max-content;
-            background-color: white;
-            border-radius: 0.375rem;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            padding: 0.5rem;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            z-index: 10;
-        }
-
-        .nav-item:hover .dropdown-menu {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .dropdown-link {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 0.5rem 1rem;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            color: #334155;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-            cursor: pointer;
-        }
-
-        .dropdown-link:hover {
-            background-color: #f1f5f9;
-        }
-
-        /* --- Hamburger Menu --- */
-        .hamburger-btn {
-            display: block;
-            padding: 0.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        /* FIX: Changed breakpoint to 1200px */
-        @media (min-width: 1200px) {
-            .hamburger-btn {
-                display: none;
-            }
-        }
-        
-        .hamburger-btn svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            color: #1e293b;
-        }
-
-        .header.transparent .hamburger-btn svg {
-            color: #ffffff;
-        }
-        
-        /* --- Mobile Sidebar --- */
-        .sidebar-overlay { position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); z-index: 60; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
-        .sidebar-overlay.active { opacity: 1; visibility: visible; }
-        .sidebar { position: fixed; top: 0; right: 0; height: 100%; width: 20rem; background-color: white; z-index: 70; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.3s ease-out; }
-        .sidebar.active { transform: translateX(0); }
-        .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid #e2e8f0; }
-        .sidebar-close-btn { font-size: 1.5rem; font-weight: 700; cursor: pointer; border: none; background: none; color: #333; }
-        .sidebar-nav { flex-grow: 1; overflow-y: auto; padding: 1rem 0; }
-        .sidebar-link { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 600; color: #333; text-decoration: none; cursor: pointer; }
-        .sidebar-link:hover { background-color: #f1f5f9; }
-        .sidebar-submenu { padding-left: 2.5rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background-color: #f8fafc; }
-        .sidebar-submenu.active { max-height: 500px; }
-        .sidebar-submenu-link { display: block; padding: 0.6rem 1.5rem; font-size: 0.875rem; color: #475569; text-decoration: none; }
-        .sidebar-submenu-link:hover { background-color: #e2e8f0; }
-
-        /* --- Main Content Styles --- */
-            /* No padding needed as hero is full screen */
-        /* --- Hero Section --- */
-        .hero-section {
-            position: relative;
-            height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr;
-            align-items: center;
-            overflow: hidden;
-        }
-        
-        @media (min-width: 768px) {
-            .hero-section {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .hero-canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .hero-canvas-container {
-                display: block;
-            }
-        }
-        
-        .hero-text-container {
-            position: relative;
-            z-index: 10;
-            padding: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .hero-text-container {
-                padding: 4rem;
-                grid-column-start: 2;
-            }
-        }
-        
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #0f172a;
-            line-height: 1.1;
-        }
-
-        @media (min-width: 768px) {
-            .hero-title {
-                font-size: 4.5rem;
-            }
-        }
-        
-        .hero-subtitle {
-            margin-top: 1.5rem;
-            font-size: 1.5rem;
-            color: #475569;
-        }
-        
-        @media (min-width: 768px) {
-            .hero-subtitle {
-                font-size: 2rem;
-            }
-        }
-        
-        .hero-subtitle .typed-text {
-            color: #2563eb;
-            font-weight: 600;
-        }
-        
-        .hero-button {
-            margin-top: 2.5rem;
-            display: inline-block;
-            background-color: #2563eb;
-            color: white;
-            font-weight: 700;
-            padding: 1rem 2.5rem;
-            border-radius: 9999px;
-            font-size: 1.125rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-button:hover {
-            background-color: #1d4ed8;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            transform: translateY(-4px);
-        }
-
-        /* --- Content Sections --- */
-        .content-wrapper {
-            max-width: 80rem;
-            margin: auto;
-            padding: 6rem 1rem;
-            display: grid;
-            gap: 6rem;
-        }
-        
-        .content-section {
-            display: grid;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        @media (min-width: 768px) {
-            .content-section {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .section-pretitle {
-            color: #2563eb;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-        
-        .section-title {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 1.5rem;
-        }
-        
-        .section-text {
-            font-size: 1.125rem;
-            color: #475569;
-            line-height: 1.75;
-            margin-bottom: 1rem;
-        }
-        
-        .image-container {
-            position: relative;
-            height: 24rem;
-        }
-        
-        .image-bg-shape {
-            position: absolute;
-            inset: 0;
-            background-color: #e2e8f0;
-            border-radius: 0.5rem;
-            transform: rotate(3deg);
-        }
-        
-        .image-container img {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 0.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .research-grid {
-            display: grid;
-            gap: 2rem;
-        }
-        
-        @media (min-width: 768px) {
-            .research-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .research-card {
-            background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .research-card:hover {
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-        
-        .research-card .image-wrapper {
-            height: 14rem;
-            overflow: hidden;
-        }
-        
-        .research-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .research-card:hover img {
-            transform: scale(1.05);
-        }
-        
-        .research-card .card-content {
-            padding: 1.5rem;
-        }
-        
-        .research-card .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-        }
-        
-        .research-card .card-description {
-            color: #475569;
-        }
-        
-        .animated-section {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        
-        .animated-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Footer Styles --- */
-        .footer {
-            background-color: #0f172a;
-            color: #94a3b8;
-        }
-
-        .footer-container {
-            max-width: 80rem;
-            margin: auto;
-            padding: 4rem 1rem;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .footer-about {
-            grid-column: span 1;
-        }
-
-        @media (min-width: 768px) {
-            .footer-about {
-                grid-column: span 2;
-            }
-        }
-
-        .footer-logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo-container img {
-            height: 4rem;
-            width: 4rem;
-        }
-
-        .footer-logo-text h2 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .footer-logo-text p {
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-        .footer-about p {
-            font-size: 1rem;
-        }
-
-        .footer-links h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #ffffff;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .footer-links ul {
-            list-style: none;
-            margin-top: 1rem;
-            display: grid;
-            gap: 0.5rem;
-        }
-
-        .footer-links a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-        
-        .footer-contact-item {
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .footer-contact-item span:first-child {
-            margin-top: 0.25rem;
-            margin-right: 0.5rem;
-            color: #60a5fa;
-        }
-
-        .footer-bottom {
-            margin-top: 3rem;
-            border-top: 1px solid #1e293b;
-            padding-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        @media (min-width: 640px) {
-            .footer-bottom {
-                flex-direction: row;
-            }
-        }
-
-        .footer-bottom p {
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-    </style>
 </head>
 <body>
-    
+
     <header id="header" class="header"></header>
-    <div id="sidebar-overlay" class="sidebar-overlay"></div>
     <div id="sidebar" class="sidebar"></div>
-    <main id="main-content" class="main-content"></main>
+    <main id="main-content" class="main-content">
+        <section class="hero-section">
+            <div class="hero-canvas-container" id="three-atom-container"></div>
+            <div class="hero-text-container">
+                <h1 class="hero-title font-serif">Welcom To IITI physics-department</h1>
+                <p class="hero-subtitle">We are <span class="typed-text" id="typed-subtitle"></span></p>
+                <a href="#about" class="hero-button">Explore Our Work</a>
+            </div>
+        </section>
+        <div class="content-wrapper">
+            <section id="about" class="content-section animated-section">
+                <div>
+                    <p class="section-pretitle">Our Mission</p>
+                    <h2 class="section-title font-serif">Advancing Knowledge, Inspiring Minds.</h2>
+                    <p class="section-text">Established in 2009, the Department of Physics at IIT Indore is a dynamic
+                        hub of intellectual curiosity and cutting-edge research. We offer a vibrant academic environment
+                        exploring everything from the quantum realm to the vastness of the cosmos.</p>
+                    <p class="section-text">Our faculty are leaders in their fields, dedicated to both mentorship and
+                        groundbreaking discovery.</p>
+                </div>
+                <div class="image-container">
+                    <div class="image-bg-shape"></div>
+                    <img src="" alt="Campus" />
+                </div>
+            </section>
+            <section class="animated-section">
+                <div class="section-header">
+                    <p class="section-pretitle">News</p>
+                    <h2 class="section-title font-serif">Upcoming Events</h2>
+                </div>
+                <div class="research-grid">
+                    <div class="research-card">
+                        <div class="image-wrapper"><img src="https://placehold.co/600x400/1E293B/FFFFFF?text=Quantum"
+                                alt="Quantum Information"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">Quantum Information</h3>
+                            <p class="card-description">Exploring the future of computing and secure communication.</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="image-wrapper"><img src="https://placehold.co/600x400/0F172A/FFFFFF?text=Cosmos"
+                                alt="Cosmology & Gravity"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">Cosmology & Gravity</h3>
+                            <p class="card-description">Investigating the origins and ultimate fate of the universe.</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="image-wrapper"><img src="https://placehold.co/600x400/334155/FFFFFF?text=Materials"
+                                alt="Materials Science"></div>
+                        <div class="card-content">
+                            <h3 class="card-title">Materials Science</h3>
+                            <p class="card-description">Designing novel materials with extraordinary properties.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
     <footer id="footer" class="footer"></footer>
-
-    <script>
-        // This robust listener waits for the entire page, including all scripts, to be fully loaded.
-        window.addEventListener('load', () => {
-            const headerContainer = document.getElementById('header');
-            const sidebarOverlay = document.getElementById('sidebar-overlay');
-            const sidebarContainer = document.getElementById('sidebar');
-            const mainContentContainer = document.getElementById('main-content');
-            const footerContainer = document.getElementById('footer');
-
-            // --- Inject Header HTML ---
-            headerContainer.innerHTML = `
-                <div class="header-container">
-                    <a href="#" class="logo-container">
-                        <img src="./files/images/logo1.webp" alt="IIT Indore Logo" />
-                        <div class="logo-text">
-                            <p class="title">Department of Physics</p>
-                            <p class="subtitle">Indian Instuite Of Technology Indore</p>
-                        </div>
-                    </a>
-                    <nav class="desktop-nav" id="desktop-nav"></nav>
-                    <button class="hamburger-btn" id="hamburger-btn">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                </div>
-            `;
-            
-            // --- Inject Sidebar HTML ---
-            sidebarContainer.innerHTML = `
-                <div class="sidebar-header">
-                    <h3 style="font-weight: 600; font-size: 1.2rem;">Menu</h3>
-                    <button id="sidebar-close-btn" class="sidebar-close-btn">&times;</button>
-                </div>
-                <nav id="sidebar-nav" class="sidebar-nav"></nav>
-            `;
-
-            // --- Inject Main Content HTML ---
-            mainContentContainer.innerHTML = `
-                <section class="hero-section">
-                  <div class="hero-canvas-container" id="three-atom-container"></div>
-                  <div class="hero-text-container">
-                      <h1 class="hero-title font-serif">Welcom To IITI physics-department</h1>
-                      <p class="hero-subtitle">We are <span class="typed-text" id="typed-subtitle"></span></p>
-                      <a href="#about" class="hero-button">Explore Our Work</a>
-                  </div>
-                </section>
-                <div class="content-wrapper">
-                  <section id="about" class="content-section animated-section">
-                      <div>
-                          <p class="section-pretitle">Our Mission</p>
-                          <h2 class="section-title font-serif">Advancing Knowledge, Inspiring Minds.</h2>
-                          <p class="section-text">Established in 2009, the Department of Physics at IIT Indore is a dynamic hub of intellectual curiosity and cutting-edge research. We offer a vibrant academic environment exploring everything from the quantum realm to the vastness of the cosmos.</p>
-                          <p class="section-text">Our faculty are leaders in their fields, dedicated to both mentorship and groundbreaking discovery.</p>
-                      </div>
-                      <div class="image-container">
-                          <div class="image-bg-shape"></div>
-                          <img src="" alt="Campus"/>
-                      </div>
-                  </section>
-                  <section class="animated-section">
-                      <div class="section-header">
-                          <p class="section-pretitle">News</p>
-                          <h2 class="section-title font-serif">Upcoming Events</h2>
-                      </div>
-                      <div class="research-grid">
-                          <div class="research-card"><div class="image-wrapper"><img src="https://placehold.co/600x400/1E293B/FFFFFF?text=Quantum" alt="Quantum Information"></div><div class="card-content"><h3 class="card-title">Quantum Information</h3><p class="card-description">Exploring the future of computing and secure communication.</p></div></div>
-                          <div class="research-card"><div class="image-wrapper"><img src="https://placehold.co/600x400/0F172A/FFFFFF?text=Cosmos" alt="Cosmology & Gravity"></div><div class="card-content"><h3 class="card-title">Cosmology & Gravity</h3><p class="card-description">Investigating the origins and ultimate fate of the universe.</p></div></div>
-                          <div class="research-card"><div class="image-wrapper"><img src="https://placehold.co/600x400/334155/FFFFFF?text=Materials" alt="Materials Science"></div><div class="card-content"><h3 class="card-title">Materials Science</h3><p class="card-description">Designing novel materials with extraordinary properties.</p></div></div>
-                      </div>
-                  </section>
-                </div>
-            `;
-
-            // --- Inject Footer HTML ---
-            footerContainer.innerHTML = `
-                <div class="footer-container">
-                  <div class="footer-grid">
-                    <div class="footer-about">
-                      <div class="footer-logo-container">
-                        <img src="./files/images/logo1.webp" alt="Logo" />
-                        <div class="footer-logo-text">
-                          <h2>Department of Physics</h2>
-                          <p>IIT Indore</p>
-                        </div>
-                      </div>
-                      <p>Dedicated to advancing the frontiers of physics through innovative research, rigorous education, and a commitment to scientific discovery.</p>
-                    </div>
-                    <div class="footer-links">
-                      <h3>Quick Links</h3>
-                      <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Research</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="#">Activites</a></li>
-                      </ul>
-                    </div>
-                    <div class="footer-links">
-                      <h3>Contact Us</h3>
-                      <ul>
-                        <li class="footer-contact-item"><span>📍</span><span>Khandwa Road, Simrol, Indore, 453552</span></li>
-                        <li class="footer-contact-item"><span>📧</span><a href="mailto:info@iiti.ac.in">info@iiti.ac.in</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="footer-bottom">
-                    <p>&copy; 2025 Department of Physics, IIT Indore. All rights reserved.</p>
-                  </div>
-                </div>
-            `;
-
-            // --- Now that HTML is injected, run the interactive scripts ---
-            initializeInteractiveScripts();
-        });
-
-        function initializeInteractiveScripts() {
-            const desktopNav = document.getElementById('desktop-nav');
-            const sidebarNav = document.getElementById('sidebar-nav');
-            const hamburgerBtn = document.getElementById('hamburger-btn');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebar-overlay');
-            const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
-            const header = document.getElementById('header');
-            
-            const navigationItems = [
-                { name: 'HOME', href: '#home' },
-                { name: 'ABOUT US', subItems: [{ name: 'HOD DESK', href: '#hoddesk' }, { name: 'DEPARTMENT INSIGHTS', href: '#depins' }] },
-                { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (ENGG PHYSICS)', href: '#btech' }, { name: 'M.SC. IN PHYSICS', href: '#mscphy' }, { name: 'PHD PROGRAM', href: '#phdphy' }] },
-                { name: 'PEOPLE', subItems: [{ name: 'FACULTY', href: '#faculty' }, { name: 'ADMINISTRATION', href: '#admin' }, { name: 'PHD STUDENTS', href: '#phds' }, { name: 'POSTDOCS AND VISITORS', href: '#pdocsvis' }] },
-                { name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: '#resdivs' }, { name: 'RESEARCH FACILITIES', href: '#resfacs' }] },
-                { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: '#phyclub' }, { name: 'SEMINARS AND COLLOQUIUMS', href: '#seminars' }] },
-                { name: 'CONTACT', href: '#contact' },
-            ];
-
-            // --- Create Navigation Menus ---
-            desktopNav.innerHTML = '';
-            sidebarNav.innerHTML = '';
-            navigationItems.forEach((item, index) => {
-                const desktopItem = document.createElement('div');
-                desktopItem.className = 'nav-item';
-                let desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
-                if (item.subItems) {
-                    let dropdownHTML = '<div class="dropdown-menu">';
-                    item.subItems.forEach(sub => { dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`; });
-                    dropdownHTML += '</div>';
-                    desktopLinkHTML += dropdownHTML;
-                }
-                desktopItem.innerHTML = desktopLinkHTML;
-                desktopNav.appendChild(desktopItem);
-
-                const mobileItemDiv = document.createElement('div');
-                let mobileLinkHTML = `<a href="${item.href || '#'}" class="sidebar-link">${item.name}`;
-                if (item.subItems) { mobileLinkHTML += `<svg fill="none" stroke="currentColor" viewBox="100 100 100 10"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`; }
-                mobileLinkHTML += `</a>`;
-                if (item.subItems) {
-                    let submenuHTML = `<div class="sidebar-submenu" id="submenu-${index}">`;
-                    item.subItems.forEach(sub => { submenuHTML += `<a href="${sub.href}" class="sidebar-submenu-link">${sub.name}</a>`; });
-                    submenuHTML += '</div>';
-                    mobileLinkHTML += submenuHTML;
-                }
-                mobileItemDiv.innerHTML = mobileLinkHTML;
-                if (item.subItems) {
-                    const link = mobileItemDiv.querySelector('.sidebar-link');
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const submenu = document.getElementById(`submenu-${index}`);
-                        submenu.classList.toggle('active');
-                    });
-                }
-                sidebarNav.appendChild(mobileItemDiv);
-            });
-
-            // --- Event Listeners ---
-            hamburgerBtn.addEventListener('click', () => {
-                sidebar.classList.add('active');
-                sidebarOverlay.classList.add('active');
-                document.body.classList.add('sidebar-open');
-            });
-
-            const closeSidebar = () => {
-                sidebar.classList.remove('active');
-                sidebarOverlay.classList.remove('active');
-                document.body.classList.remove('sidebar-open');
-            };
-
-            sidebarCloseBtn.addEventListener('click', closeSidebar);
-            sidebarOverlay.addEventListener('click', closeSidebar);
-            
-            // --- Scroll Logic ---
-            /*const isHomePage = true; 
-            if (isHomePage) {
-                header.classList.add('transparent');
-            }
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 30) {
-                    header.classList.add('scrolled');
-                    if (isHomePage) header.classList.remove('transparent');
-                } else {
-                    header.classList.remove('scrolled');
-                    if (isHomePage) header.classList.add('transparent');
-                }
-            });*/
-
-            // --- Typed.js Logic ---
+</body>
+<script>
+    // --- Typed.js Logic ---
             if (typeof Typed !== 'undefined') {
                 new Typed('#typed-subtitle', {
                     strings: ['Innovators.', 'Explorers.', 'Pioneers.'],
@@ -868,8 +163,6 @@
                 });
             }, { threshold: 0.2 });
             animatedSections.forEach(section => observer.observe(section));
-        }
-    </script>
-
-</body>
+</script>
+<script src="navbar.js"></script>
 </html>
