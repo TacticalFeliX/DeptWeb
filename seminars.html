@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seminars & Colloquiums | Department of Physics, IIT Indore</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="navbar.css">
   <style>
     h1,
     h2 {
@@ -40,13 +41,9 @@
 </head>
 
 <body>
-  <div id="navbar-container"></div>
+  <header id="header" class="header"></header>
+  <div id="sidebar" class="sidebar"></div>
 
-  <script>
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('navbar-container').innerHTML = data);
-  </script>
 
   <div class="container">
     <h1>Seminars & Colloquiums</h1>
@@ -82,31 +79,26 @@
     </table>
   </div>
 
-  <div id="footer-placeholder"></div>
-  <script>
-    fetch("footer.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      });
-  </script>
+
+  <footer id="footer" class="footer"></footer>
+  <script src="navbar.js"></script>
 
   <!-- PapaParse CDN -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <!-- JS to load CSV and fill table -->
   <script>
-  fetch('files/seminars.csv')
-    .then(response => response.text())
-    .then(csvText => {
-      const parsed = Papa.parse(csvText, { header: true });
-      console.log("Parsed Data:", parsed.data); // Debug
+    fetch('files/seminars.csv')
+      .then(response => response.text())
+      .then(csvText => {
+        const parsed = Papa.parse(csvText, { header: true });
+        console.log("Parsed Data:", parsed.data); // Debug
 
-      const tableBody = document.getElementById('seminarTableBody');
-      parsed.data.forEach((row, index) => {
-        if (row.Name && row.Name.trim() !== "") {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
+        const tableBody = document.getElementById('seminarTableBody');
+        parsed.data.forEach((row, index) => {
+          if (row.Name && row.Name.trim() !== "") {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
             <td>${index + 1}</td>
             <td>${row["Name"]}</td>
             <td>${row["Coordinators"]}</td>
@@ -115,12 +107,12 @@
             <td>${row["Participants"]}</td>
             <td>${row["Remarks"]}</td>
           `;
-          tableBody.appendChild(tr);
-        }
-      });
-    })
-    .catch(error => console.error("Error loading CSV:", error));
-</script>
+            tableBody.appendChild(tr);
+          }
+        });
+      })
+      .catch(error => console.error("Error loading CSV:", error));
+  </script>
 
 
   <script src="script.js"></script>

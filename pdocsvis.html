@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Postdocs & Visitors</title>
+  
+    <link rel="stylesheet" href="navbar.css">
   <style>
     body {
       margin: 0;
@@ -65,13 +67,8 @@
   </style>
 </head>
 <body>
-  <div id="navbar-container"></div>
-
-  <script>
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('navbar-container').innerHTML = data);
-  </script>
+    <header id="header" class="header"></header>
+    <div id="sidebar" class="sidebar"></div>
 
   <div class="container">
     <h1>Postdoctoral Fellows</h1>
@@ -124,15 +121,7 @@
           </div>
     </div>
   </div>
-  <div id="footer-placeholder"></div>
-
-    <script>
-        fetch("footer.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("footer-placeholder").innerHTML = data;
-            });
-    </script>
-  <script src="script.js"></script>
+    <footer id="footer" class="footer"></footer>
+    <script src="navbar.js"></script>
 </body>
 </html>
