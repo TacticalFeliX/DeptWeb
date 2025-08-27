@@ -85,7 +85,7 @@ function initializeInteractiveScripts() {
         { name: 'HOME', href: 'index.html' },
         { name: 'ABOUT US', subItems: [{ name: 'HOD DESK', href: 'hoddesk.html' }, { name: 'DEPARTMENT INSIGHTS', href: 'depins.html' }] },
         { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (ENGG PHYSICS)', href: 'btech.html' }, { name: 'M.SC. IN PHYSICS', href: 'mscphy.html' }, { name: 'PHD PROGRAM', href: 'phdphy.html' }] },
-        { name: 'PEOPLE', subItems: [{ name: 'FACULTY', href: 'faculty.html' }, { name: 'ADMINISTRATION', href: 'admin.html' }, { name: 'PHD STUDENTS', href: 'phds.html' }, { name: 'POSTDOCS AND VISITORS', href: 'pdocsvis.html' }] },
+        { name: 'PEOPLE', subItems: [{ name: 'FACULTY', href: 'faculty.html' }, { name: 'ADMINISTRATION', href: 'admin.html' }, { name: 'STUDENTS CORNER', href: 'stucorner.html' }, { name: 'POSTDOCS AND VISITORS', href: 'pdocsvis.html' }] },
         { name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: 'resdivs.html' }, { name: 'RESEARCH FACILITIES', href: 'resfacs.html' }] },
         { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: 'phyclub.html' }, { name: 'SEMINARS AND COLLOQUIUMS', href: 'seminars.html' }] },
         { name: 'CONTACT', href: '#contact' },
