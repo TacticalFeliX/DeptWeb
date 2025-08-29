@@ -1,15 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PHD STUDENTS</title>
+    <title>BTECH STUDENTS</title>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="../peoplestyle.css">
-    <link rel="stylesheet" href="../navbar.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../peoplestyle.css" />
+    <link rel="stylesheet" href="../navbar.css" />
+    <style>
+      /* BTECH page specific styles, taken from the PHD page */
+      html,
+      body {
+        overflow-x: hidden;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        color: #000000;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        background: #ffffff;
+        padding: 1vw;
+        border-radius: 8px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;
+        height: 60vh;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* Firefox */
+      .table-wrapper {
+        scrollbar-width: thin;
+        scrollbar-color: #c2b9b0 #f0e8df;
+      }
+
+      /* WebKit (Chrome, Safari, Edge) */
+      .table-wrapper::-webkit-scrollbar {
+        height: 10px;
+      }
+
+      .table-wrapper::-webkit-scrollbar-thumb {
+        background-color: #c2b9b0;
+        border-radius: 6px;
+      }
+
+      .table-wrapper::-webkit-scrollbar-track {
+        background: #f0e8df;
+      }
+
+      h1,
+      h2 {
+        text-align: center;
+        color: #2678c5;
+      }
+
+      h1 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1em;
+        line-height: 1.7;
+      }
+
+      table {
+        width: 100%;
+        min-width: 950px;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background-color: #ffffff;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+      }
+
+      th,
+      td {
+        padding: 0px 16px;
+        text-align: left;
+        font-size: 0.7em;
+        border-bottom: 1px solid #e0dcd6;
+      }
+
+      th {
+        background-color: #e6dacf;
+        color: #5a3208;
+        font-weight: bold;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f7f2ec;
+      }
+
+      .search-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+      }
+
+      .search-wrapper input {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+
+      .sub-navbar {
+        background-color: rgb(255, 250, 240);
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        padding: 10px 0;
+        font-size: 0.8em;
+      }
+
+      .sub-navbar a {
+        color: #5a3208;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .sub-navbar a:hover {
+        color: rgb(0, 0, 0);
+      }
+
+      a.selected {
+        color: #2678c5;
+        text-decoration: underline;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
     <div class="sub-navbar">
@@ -23,61 +158,93 @@
         <a href="phdstuy7.html">PHD YEAR 7</a>
         <a href="gradphds.html">GRADUATED PHDS</a>
     </div>
+
     <div class="container">
-        <center>
-            <h2>PhD 2ND YEAR STUDENTS</h2>
-        </center>
+      <center>
+        <h2>BTECH BATCH 2029</h2>
+      </center>
+      <div class="search-wrapper">
+        <input type="text" id="studentSearch" placeholder="Search students..." />
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Name</th>
+              <th>Roll No.</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody">
+            </tbody>
+        </table>
+      </div>
+    </div>
 
- 
-
-    <div class="student-grid" id="student-grid"></div>
-   </div>
     <script>
-        const targetProgram = "PhD";
-        const targetYear = 2;
+      const targetProgram = "PhD";
+      const targetYear = 2;
 
-        fetch('studetails.csv')
-            .then(response => response.text())
-            .then(csvText => {
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    transformHeader: h => h.trim(),
-                    complete: function (results) {
-                        const studentData = results.data;
-                        const container = document.getElementById('student-grid');
+      fetch("studetails.csv")
+        .then((response) => response.text())
+        .then((csvText) => {
+          Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            transformHeader: (h) => h.trim(),
+            complete: function (results) {
+              const studentData = results.data;
+              const tbody = document.getElementById("studentTableBody");
+              let serialNumber = 1;
 
-                        studentData.forEach(student => {
-                            if (
-                                student.Program?.trim().toLowerCase() === targetProgram.toLowerCase() &&
-                                Number(student.Year) === targetYear
-                            ) {
-                                const card = document.createElement('div');
-                                card.className = 'student-card';
+              studentData.forEach((student) => {
+                if (
+                  student.Program?.trim().toLowerCase() ===
+                    targetProgram.toLowerCase() &&
+                  Number(student.Year) === targetYear
+                ) {
+                  const row = document.createElement("tr");
+                  row.innerHTML = `
+                      <td>${serialNumber++}</td>
+                      <td>${student.Name}</td>
+                      <td>${student.RollNo}</td>
+                  `;
+                  tbody.appendChild(row);
+                }
+              });
+            },
+          });
+        })
+        .catch((error) => {
+          console.error("Failed to load or render student data:", error);
+          document.getElementById("studentTableBody").innerHTML =
+            "<p style='color:red;'>Failed to load student data.</p>";
+        });
 
-                                card.innerHTML = `
-                                <img src="stuimages/${student.imgsource.trim()}" alt="${student.Name}" />
-                                <div class="student-details">
-                                    <p class="student-name">${student.Name}</p>
-                                    <p class="student-roll">${student.RollNo}</p>
-                                </div>
-                            `;
+      // Search filter for BTECH students
+      document
+        .getElementById("studentSearch")
+        .addEventListener("keyup", function () {
+          const filter = this.value.toLowerCase();
+          const rows = document.querySelectorAll("#studentTableBody tr");
+          let visibleIndex = 0;
 
-                                container.appendChild(card);
-                            }
-                        });
-                    }
-                });
-            })
-            .catch(error => {
-                console.error("Failed to load or render student data:", error);
-                document.getElementById('student-grid').innerHTML =
-                    "<p style='color:red;'>Failed to load student data.</p>";
-            });
+          rows.forEach((row) => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(filter)) {
+              row.style.display = "";
+              // Re-apply zebra-striping for visible rows
+              row.style.backgroundColor =
+                visibleIndex % 2 === 0 ? "#ffffff" : "#f7f2ec";
+              visibleIndex++;
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
     </script>
 
     <footer id="footer" class="footer"></footer>
     <script src="navbar.js"></script>
-</body>
-
+  </body>
 </html>
