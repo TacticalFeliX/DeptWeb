@@ -1,10 +1,10 @@
 // This robust listener waits for the entire page, including all scripts, to be fully loaded.
-    window.addEventListener('load', () => {
-        const headerContainer = document.getElementById('header');
-        const sidebarContainer = document.getElementById('sidebar');
-        const footerContainer = document.getElementById('footer');
-        // --- Inject Header HTML ---
-        headerContainer.innerHTML = `
+window.addEventListener('load', () => {
+    const headerContainer = document.getElementById('header');
+    const sidebarContainer = document.getElementById('sidebar');
+    const footerContainer = document.getElementById('footer');
+    // --- Inject Header HTML ---
+    headerContainer.innerHTML = `
                 <div class="header-container">
                     <a href="#" class="logo-container">
                         <img src="./files/images/logo1.webp" alt="IIT Indore Logo" />
@@ -19,16 +19,16 @@
                     </button>
                 </div>
             `;
-        // --- Inject Sidebar HTML ---
-        sidebarContainer.innerHTML = `
+    // --- Inject Sidebar HTML ---
+    sidebarContainer.innerHTML = `
                 <div class="sidebar-header">
                     <h3 style="font-weight: 600; font-size: 1.2rem;">Menu</h3>
                     <button id="sidebar-close-btn" class="sidebar-close-btn">&times;</button>
                 </div>
                 <nav id="sidebar-nav" class="sidebar-nav"></nav>
             `;
-        // --- Inject Footer HTML ---
-        footerContainer.innerHTML = `
+    // --- Inject Footer HTML ---
+    footerContainer.innerHTML = `
                 <div class="footer-container">
                   <div class="footer-grid">
                     <div class="footer-about">
@@ -63,7 +63,7 @@
                   </div>
                 </div>
             `;
-    });
+});
 // This robust listener waits for the entire page, including all scripts, to be fully loaded.
 window.addEventListener('load', () => {
     const sidebarOverlay = document.getElementById('sidebar-overlay');
@@ -88,7 +88,7 @@ function initializeInteractiveScripts() {
         { name: 'PEOPLE', subItems: [{ name: 'FACULTY', href: 'faculty.html' }, { name: 'ADMINISTRATION', href: 'admin.html' }, { name: 'STUDENTS CORNER', href: 'stucorner.html' }, { name: 'POSTDOCS AND VISITORS', href: 'pdocsvis.html' }] },
         { name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: 'resdivs.html' }, { name: 'RESEARCH FACILITIES', href: 'resfacs.html' }] },
         { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: 'phyclub.html' }, { name: 'SEMINARS AND COLLOQUIUMS', href: 'seminars.html' }] },
-        { name: 'CONTACT', href: '#contact' },
+        { name: 'CONTACT', href: '#footer' },
     ];
 
     // --- Create Navigation Menus ---
@@ -97,19 +97,26 @@ function initializeInteractiveScripts() {
     navigationItems.forEach((item, index) => {
         const desktopItem = document.createElement('div');
         desktopItem.className = 'nav-item';
-        let desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
+        // Check if there are subItems to decide between a button and a link
+        let desktopLinkHTML = '';
         if (item.subItems) {
+            desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
             let dropdownHTML = '<div class="dropdown-menu">';
             item.subItems.forEach(sub => { dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`; });
             dropdownHTML += '</div>';
             desktopLinkHTML += dropdownHTML;
+        } else {
+            // For items without sub-menus, use a standard anchor tag
+            desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
         }
         desktopItem.innerHTML = desktopLinkHTML;
         desktopNav.appendChild(desktopItem);
 
         const mobileItemDiv = document.createElement('div');
         let mobileLinkHTML = `<a href="${item.href || '#'}" class="sidebar-link">${item.name}`;
-        if (item.subItems) { mobileLinkHTML += `<svg fill="none" stroke="currentColor" viewBox="100 100 100 10"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`; }
+        if (item.subItems) {
+            mobileLinkHTML += `<svg fill="none" stroke="currentColor" viewBox="100 100 100 10"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`;
+        }
         mobileLinkHTML += `</a>`;
         if (item.subItems) {
             let submenuHTML = `<div class="sidebar-submenu" id="submenu-${index}">`;
@@ -120,6 +127,7 @@ function initializeInteractiveScripts() {
         mobileItemDiv.innerHTML = mobileLinkHTML;
         if (item.subItems) {
             const link = mobileItemDiv.querySelector('.sidebar-link');
+            // Only prevent the default if there are sub-items to toggle
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const submenu = document.getElementById(`submenu-${index}`);
@@ -146,7 +154,7 @@ function initializeInteractiveScripts() {
     sidebarOverlay.addEventListener('click', closeSidebar);
 
     // --- Scroll Logic ---
-    /*const isHomePage = true; 
+    /*const isHomePage = true;
     if (isHomePage) {
         header.classList.add('transparent');
     }
