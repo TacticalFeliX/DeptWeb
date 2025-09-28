@@ -1,10 +1,10 @@
 // This robust listener waits for the entire page, including all scripts, to be fully loaded.
-    window.addEventListener('load', () => {
-        const headerContainer = document.getElementById('header');
-        const sidebarContainer = document.getElementById('sidebar');
-        const footerContainer = document.getElementById('footer');
-        // --- Inject Header HTML ---
-        headerContainer.innerHTML = `
+window.addEventListener('load', () => {
+    const headerContainer = document.getElementById('header');
+    const sidebarContainer = document.getElementById('sidebar');
+    const footerContainer = document.getElementById('footer');
+    // --- Inject Header HTML ---
+    headerContainer.innerHTML = `
                 <div class="header-container">
                     <a href="#" class="logo-container">
                         <img src="../files/images/logo1.webp" alt="IIT Indore Logo" />
@@ -19,16 +19,16 @@
                     </button>
                 </div>
             `;
-        // --- Inject Sidebar HTML ---
-        sidebarContainer.innerHTML = `
+    // --- Inject Sidebar HTML ---
+    sidebarContainer.innerHTML = `
                 <div class="sidebar-header">
                     <h3 style="font-weight: 600; font-size: 1.2rem;">Menu</h3>
                     <button id="sidebar-close-btn" class="sidebar-close-btn">&times;</button>
                 </div>
                 <nav id="sidebar-nav" class="sidebar-nav"></nav>
             `;
-        // --- Inject Footer HTML ---
-        footerContainer.innerHTML = `
+    // --- Inject Footer HTML ---
+    footerContainer.innerHTML = `
                 <div class="footer-container">
                   <div class="footer-grid">
                     <div class="footer-about">
@@ -63,7 +63,7 @@
                   </div>
                 </div>
             `;
-    });
+});
 // This robust listener waits for the entire page, including all scripts, to be fully loaded.
 window.addEventListener('load', () => {
     const sidebarOverlay = document.getElementById('sidebar-overlay');
@@ -85,39 +85,78 @@ function initializeInteractiveScripts() {
         { name: 'HOME', href: '../index.html' },
         { name: 'ABOUT US', subItems: [{ name: 'HOD DESK', href: '../hoddesk.html' }, { name: 'DEPARTMENT INSIGHTS', href: '../depins.html' }] },
         { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (ENGG PHYSICS)', href: '../btech.html' }, { name: 'M.SC. IN PHYSICS', href: '../mscphy.html' }, { name: 'PHD PROGRAM', href: '../phdphy.html' }] },
-        { name: 'PEOPLE', subItems: [{ name: 'FACULTY', href: '../faculty.html' }, { name: 'ADMINISTRATION', href: '../admin.html' }, { name: 'STUDENTS CORNER', href: '../stucorner.html' }, { name: 'POSTDOCS AND VISITORS', href: '../pdocsvis.html' }] },
+        {
+            name: 'PEOPLE', subItems: [
+                { name: 'FACULTY', href: '../faculty.html' },
+                { name: 'ADMINISTRATION', href: '../admin.html' },
+                { name: 'POSTDOCS AND VISITORS', href: '../pdocsvis.html' },
+                { name: 'PHD STUDENTS', href: 'phdstus.html' },
+                { name: 'MS STUDENTS', href: 'mscstus.html' },
+                {
+                    name: 'BTECH STUDENTS', subItems: [
+                        { name: "BTECH BATCH'28", href: 'btech28.html' },
+                        { name: "BTECH BATCH'27", href: 'btech27.html' },
+                        { name: "BTECH BATCH'26", href: 'btech26.html' }
+                    ]
+                }
+            ]
+        },
         { name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: '../resdivs.html' }, { name: 'RESEARCH FACILITIES', href: '../resfacs.html' }] },
         { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: '../phyclub.html' }, { name: 'SEMINARS AND COLLOQUIUMS', href: '../seminars.html' }] },
         { name: 'CONTACT', href: '#CONTACT' },
     ];
 
-    // --- Create Navigation Menus ---
+    // --- Desktop Navigation ---
     desktopNav.innerHTML = '';
-    sidebarNav.innerHTML = '';
     navigationItems.forEach((item, index) => {
         const desktopItem = document.createElement('div');
         desktopItem.className = 'nav-item';
-        let desktopLinkHTML = `<a href="${item.href || '#'}" class="nav-link">${item.name}</a>`;
+
+        let desktopLinkHTML = '';
         if (item.subItems) {
-            let dropdownHTML = '<div class="dropdown-menu">';
-            item.subItems.forEach(sub => { dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`; });
-            dropdownHTML += '</div>';
-            desktopLinkHTML += dropdownHTML;
+            desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
+            desktopLinkHTML += generateDropdown(item.subItems);
+        } else {
+            desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
         }
+
         desktopItem.innerHTML = desktopLinkHTML;
         desktopNav.appendChild(desktopItem);
+    });
 
+    function generateDropdown(subItems) {
+        let html = '<div class="dropdown-menu">';
+        subItems.forEach(sub => {
+            if (sub.subItems) {
+                html += `<div class="dropdown-submenu">
+                            <a href="#" class="dropdown-link">${sub.name} ▸</a>
+                            ${generateDropdown(sub.subItems)}
+                         </div>`;
+            } else {
+                html += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`;
+            }
+        });
+        html += '</div>';
+        return html;
+    }
+
+    // --- Mobile Navigation ---
+    sidebarNav.innerHTML = '';
+    navigationItems.forEach((item, index) => {
         const mobileItemDiv = document.createElement('div');
         let mobileLinkHTML = `<a href="${item.href || '#'}" class="sidebar-link">${item.name}`;
-        if (item.subItems) { mobileLinkHTML += `<svg fill="none" stroke="currentColor" viewBox="100 100 100 10"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`; }
+        if (item.subItems) mobileLinkHTML += `<svg fill="none" stroke="currentColor" viewBox="100 100 100 10"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`;
         mobileLinkHTML += `</a>`;
+
         if (item.subItems) {
             let submenuHTML = `<div class="sidebar-submenu" id="submenu-${index}">`;
-            item.subItems.forEach(sub => { submenuHTML += `<a href="${sub.href}" class="sidebar-submenu-link">${sub.name}</a>`; });
+            item.subItems.forEach(sub => { submenuHTML += `<a href="${sub.href || '#'}" class="sidebar-submenu-link">${sub.name}</a>`; });
             submenuHTML += '</div>';
             mobileLinkHTML += submenuHTML;
         }
+
         mobileItemDiv.innerHTML = mobileLinkHTML;
+
         if (item.subItems) {
             const link = mobileItemDiv.querySelector('.sidebar-link');
             link.addEventListener('click', (e) => {
@@ -126,10 +165,11 @@ function initializeInteractiveScripts() {
                 submenu.classList.toggle('active');
             });
         }
+
         sidebarNav.appendChild(mobileItemDiv);
     });
 
-    // --- Event Listeners ---
+    // --- Sidebar toggles ---
     hamburgerBtn.addEventListener('click', () => {
         sidebar.classList.add('active');
         sidebarOverlay.classList.add('active');
@@ -144,20 +184,4 @@ function initializeInteractiveScripts() {
 
     sidebarCloseBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
-
-    // --- Scroll Logic ---
-    /*const isHomePage = true; 
-    if (isHomePage) {
-        header.classList.add('transparent');
-    }
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 30) {
-            header.classList.add('scrolled');
-            if (isHomePage) header.classList.remove('transparent');
-        } else {
-            header.classList.remove('scrolled');
-            if (isHomePage) header.classList.add('transparent');
-        }
-    });*/
 }

@@ -85,8 +85,20 @@ function initializeInteractiveScripts() {
         { name: 'HOME', href: 'index.html' },
         { name: 'ABOUT US', subItems: [{ name: 'HOD DESK', href: 'hoddesk.html' }, { name: 'DEPARTMENT INSIGHTS', href: 'depins.html' }] },
         { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (ENGG PHYSICS)', href: 'btech.html' }, { name: 'M.SC. IN PHYSICS', href: 'mscphy.html' }, { name: 'PHD PROGRAM', href: 'phdphy.html' }] },
-        { name: 'PEOPLE', subItems: [{ name: 'FACULTY', href: 'faculty.html' }, { name: 'ADMINISTRATION', href: 'admin.html' }, { name: 'STUDENTS CORNER', href: 'stucorner.html' }, { name: 'POSTDOCS AND VISITORS', href: 'pdocsvis.html' }] },
-        { name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: 'resdivs.html' }, { name: 'RESEARCH FACILITIES', href: 'resfacs.html' }] },
+        { name: 'PEOPLE', subItems: [
+            { name: 'FACULTY', href: 'faculty.html' }, 
+            { name: 'ADMINISTRATION', href: 'admin.html' },
+            { name: 'POSTDOCS AND VISITORS', href: 'pdocsvis.html' }, 
+            { name: 'PHD STUDENTS', href: 'students_corner/phdstus.html' }, 
+            { name: 'MS STUDENTS', href: 'students_corner/mscstus.html' },
+            { name: 'BTECH STUDENTS',
+                    subItems: [
+                        { name: "BTECH BATCH'28", href: 'students_corner/btech28.html' },
+                        { name: "BTECH BATCH'27", href: 'students_corner/btech27.html' },
+                        { name: "BTECH BATCH'26", href: 'students_corner/btech26.html' }
+                    ]
+                },]
+        },{ name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: 'resdivs.html' }, { name: 'RESEARCH FACILITIES', href: 'resfacs.html' }] },
         { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: 'phyclub.html' }, { name: 'SEMINARS AND COLLOQUIUMS', href: 'seminars.html' }] },
         { name: 'CONTACT', href: '#footer' },
     ];
@@ -99,16 +111,31 @@ function initializeInteractiveScripts() {
         desktopItem.className = 'nav-item';
         // Check if there are subItems to decide between a button and a link
         let desktopLinkHTML = '';
-        if (item.subItems) {
-            desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
-            let dropdownHTML = '<div class="dropdown-menu">';
-            item.subItems.forEach(sub => { dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`; });
-            dropdownHTML += '</div>';
-            desktopLinkHTML += dropdownHTML;
+if (item.subItems) {
+    desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
+    let dropdownHTML = '<div class="dropdown-menu">';
+    item.subItems.forEach(sub => {
+        if (sub.subItems) {
+            // Nested submenu
+            dropdownHTML += `
+              <div class="dropdown-submenu">
+                <a href="#" class="dropdown-link">${sub.name} ▸</a>
+                <div class="dropdown-menu nested">
+                  ${sub.subItems.map(ss => `<a href="${ss.href}" class="dropdown-link">${ss.name}</a>`).join('')}
+                </div>
+              </div>
+            `;
         } else {
-            // For items without sub-menus, use a standard anchor tag
-            desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
+            dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`;
         }
+    });
+    dropdownHTML += '</div>';
+    desktopLinkHTML += dropdownHTML;
+} else {
+    // For items without sub-menus, use a standard anchor tag
+    desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
+}
+
         desktopItem.innerHTML = desktopLinkHTML;
         desktopNav.appendChild(desktopItem);
 

@@ -147,15 +147,9 @@
   <body>
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
-    <div class="sub-navbar">
-        <a href="../stucorner.html">Students Corner</a>
-        <a href="msc27.html" class="selected">MSC BATCH'27</a>
-        <a href="msc26.html">MSC BATCH'26</a>
-    </div>
-
     <div class="container">
       <center>
-        <h2>MSC BATCH 2027</h2>
+        <h2>PHD PHYSICS STUDENTS</h2>
       </center>
       <div class="search-wrapper">
         <input type="text" id="studentSearch" placeholder="Search students..." />
@@ -176,8 +170,7 @@
     </div>
 
     <script>
-      const targetProgram = "MSc";
-      const targetYear = 2;
+      const targetProgram = "PhD";
 
       fetch("studetails.csv")
         .then((response) => response.text())
@@ -194,8 +187,7 @@
               studentData.forEach((student) => {
                 if (
                   student.Program?.trim().toLowerCase() ===
-                    targetProgram.toLowerCase() &&
-                  Number(student.Year) === targetYear
+                    targetProgram.toLowerCase()
                 ) {
                   const row = document.createElement("tr");
                   row.innerHTML = `
