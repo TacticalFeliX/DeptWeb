@@ -83,23 +83,32 @@ function initializeInteractiveScripts() {
 
     const navigationItems = [
         { name: 'HOME', href: 'index.html' },
-        { name: 'ABOUT US', subItems: [{ name: 'HOD DESK', href: 'hoddesk.html' }, { name: 'DEPARTMENT INSIGHTS', href: 'depins.html' }] },
-        { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (ENGG PHYSICS)', href: 'btech.html' }, { name: 'M.SC. IN PHYSICS', href: 'mscphy.html' }, { name: 'PHD PROGRAM', href: 'phdphy.html' }] },
+        { name: 'ABOUT US', subItems: [{ name: 'HOD Desk', href: 'hoddesk.html' }, { name: 'Department Insights', href: 'depins.html' }] },
+        { name: 'ACADEMICS', subItems: [{ name: 'B.Tech (Engg Physics)', href: 'btech.html' }, { name: 'M.Sc. in Physics', href: 'mscphy.html' }, { name: 'PhD Program', href: 'phdphy.html' }] },
         { name: 'PEOPLE', subItems: [
-            { name: 'FACULTY', href: 'faculty.html' }, 
-            { name: 'ADMINISTRATION', href: 'admin.html' },
-            { name: 'POSTDOCS AND VISITORS', href: 'pdocsvis.html' }, 
-            { name: 'PHD STUDENTS', href: 'students_corner/phdstus.html' }, 
-            { name: 'MS STUDENTS', href: 'students_corner/mscstus.html' },
-            { name: 'BTECH STUDENTS',
+            { name: 'Faculty', href: 'faculty.html' },
+                { name: 'Former Faculty', href: 'formerfaculty.html' },
+            { name: 'Administration', href: 'admin.html' },
+            { name: 'Postdocs & Visitors', href: 'pdocsvis.html' }, 
+            { name: 'PhD Students', href: 'students_corner/phdstus.html' }, 
+            { name: 'MS Students', href: 'students_corner/mscstus.html' },
+            { name: 'BTech Students',
                     subItems: [
-                        { name: "BTECH BATCH'28", href: 'students_corner/btech28.html' },
-                        { name: "BTECH BATCH'27", href: 'students_corner/btech27.html' },
-                        { name: "BTECH BATCH'26", href: 'students_corner/btech26.html' }
+                        { name: "BTech Batch'28", href: 'students_corner/btech28.html' },
+                        { name: "BTech Batch'27", href: 'students_corner/btech27.html' },
+                        { name: "BTech Batch'26", href: 'students_corner/btech26.html' }
                     ]
-                },]
-        },{ name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: 'resdivs.html' }, { name: 'RESEARCH FACILITIES', href: 'resfacs.html' }] },
-        { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: 'phyclub.html' }, { name: 'SEMINARS AND COLLOQUIUMS', href: 'seminars.html' }] },
+                },
+                { name: 'Alumni', href: 'students_corner/almuni.html' },]
+        },{ name: 'RESEARCH', subItems: [{ name: 'Research Divisions', href: 'resdivs.html' }, { name: 'Research Facilites', href: 'resfacs.html' }] },
+        { name: 'ACTIVITIES', 
+            subItems: [
+                { name: 'Physics Club', href: 'phyclub.html' }, 
+                { name: 'Seminars AND Colloquiums', href: 'seminars.html' },
+                { name: 'Gallert', href: 'gallery.html' },
+                { name: 'Awards & Achievements', href: 'achievements.html' }
+            ] 
+        },
         { name: 'CONTACT', href: '#footer' },
     ];
 

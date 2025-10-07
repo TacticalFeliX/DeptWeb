@@ -83,26 +83,35 @@ function initializeInteractiveScripts() {
 
     const navigationItems = [
         { name: 'HOME', href: '../index.html' },
-        { name: 'ABOUT US', subItems: [{ name: 'HOD DESK', href: '../hoddesk.html' }, { name: 'DEPARTMENT INSIGHTS', href: '../depins.html' }] },
-        { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (ENGG PHYSICS)', href: '../btech.html' }, { name: 'M.SC. IN PHYSICS', href: '../mscphy.html' }, { name: 'PHD PROGRAM', href: '../phdphy.html' }] },
+        { name: 'ABOUT US', subItems: [{ name: 'HOD Desk', href: '../hoddesk.html' }, { name: 'Department Insights', href: '../depins.html' }] },
+        { name: 'ACADEMICS', subItems: [{ name: 'B.TECH (Engg Physics)', href: '../btech.html' }, { name: 'M.Sc. in Physics', href: '../mscphy.html' }, { name: 'PhD Program', href: '../phdphy.html' }] },
         {
             name: 'PEOPLE', subItems: [
-                { name: 'FACULTY', href: '../faculty.html' },
-                { name: 'ADMINISTRATION', href: '../admin.html' },
-                { name: 'POSTDOCS AND VISITORS', href: '../pdocsvis.html' },
-                { name: 'PHD STUDENTS', href: 'phdstus.html' },
-                { name: 'MS STUDENTS', href: 'mscstus.html' },
+                { name: 'Faculty', href: '../faculty.html' },
+                { name: 'Former Faculty', href: '../formerfaculty.html' },
+                { name: 'Administration', href: '../admin.html' },
+                { name: 'Postdocs & Visitors', href: '../pdocsvis.html' },
+                { name: 'PhD Students', href: 'phdstus.html' },
+                { name: 'MS Students', href: 'mscstus.html' },
                 {
-                    name: 'BTECH STUDENTS', subItems: [
-                        { name: "BTECH BATCH'28", href: 'btech28.html' },
-                        { name: "BTECH BATCH'27", href: 'btech27.html' },
-                        { name: "BTECH BATCH'26", href: 'btech26.html' }
+                    name: 'BTech Students', subItems: [
+                        { name: "BTech Batch'28", href: 'btech28.html' },
+                        { name: "BTech Batch'27", href: 'btech27.html' },
+                        { name: "BTech Batch'26", href: 'btech26.html' }
                     ]
-                }
+                },
+                { name: 'Alumni', href: 'almuni.html' }
             ]
         },
-        { name: 'RESEARCH', subItems: [{ name: 'RESEARCH DIVISIONS', href: '../resdivs.html' }, { name: 'RESEARCH FACILITIES', href: '../resfacs.html' }] },
-        { name: 'ACTIVITIES', subItems: [{ name: 'PHYSICS CLUB', href: '../phyclub.html' }, { name: 'SEMINARS AND COLLOQUIUMS', href: '../seminars.html' }] },
+        { name: 'RESEARCH', subItems: [{ name: 'Research Divisions', href: '../resdivs.html' }, { name: 'Research Facilites', href: '../resfacs.html' }] },
+        { name: 'ACTIVITIES', 
+            subItems: [
+                { name: 'Physics Club', href: '../phyclub.html' }, 
+                { name: 'Seminars & Colloquiums', href: '../seminars.html' },
+                { name: 'Gallery', href: '../gallery.html' },
+                { name: 'Awards & Achievements', href: '../achievements.html' }
+            ] 
+        },
         { name: 'CONTACT', href: '#CONTACT' },
     ];
 
@@ -129,9 +138,9 @@ function initializeInteractiveScripts() {
         subItems.forEach(sub => {
             if (sub.subItems) {
                 html += `<div class="dropdown-submenu">
-                            <a href="#" class="dropdown-link">${sub.name} ▸</a>
-                            ${generateDropdown(sub.subItems)}
-                         </div>`;
+            <button class="dropdown-link">${sub.name} ▸</button>
+            ${generateDropdown(sub.subItems)}
+         </div>`;
             } else {
                 html += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`;
             }
