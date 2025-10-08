@@ -8,20 +8,15 @@
     <link rel="stylesheet" href="../peoplestyle.css" />
     <link rel="stylesheet" href="../navbar.css" />
     <link rel="stylesheet" href="studentstyle.css" />
-  </head>
+    </head>
 
   <body>
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
-    <div class="sub-navbar">
-        <a href="btech29.html">BTECH BATCH'29</a>
-        <a href="btech28.html" class="selected">BTECH BATCH'28</a>
-        <a href="btech27.html">BTECH BATCH'27</a>
-    </div>
 
     <div class="container">
       <center>
-        <h2>BTECH BATCH 2028</h2>
+        <h2>MSC PHYSICS STUDENTS</h2>
       </center>
       <div class="search-wrapper">
         <input type="text" id="studentSearch" placeholder="Search students..." />
@@ -42,8 +37,7 @@
     </div>
 
     <script>
-      const targetProgram = "BTech";
-      const targetYear = 2;
+      const targetProgram = "MSc";
 
       fetch("studetails.csv")
         .then((response) => response.text())
@@ -60,8 +54,7 @@
               studentData.forEach((student) => {
                 if (
                   student.Program?.trim().toLowerCase() ===
-                    targetProgram.toLowerCase() &&
-                  Number(student.Year) === targetYear
+                    targetProgram.toLowerCase()
                 ) {
                   const row = document.createElement("tr");
                   row.innerHTML = `
