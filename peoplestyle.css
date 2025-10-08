@@ -282,7 +282,8 @@ h1 {
 }
 
 .sub-navbar {
-    background-color: rgb(255, 250, 240);
+    border:1px;
+    background-color: #F8F9FA;
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -291,7 +292,8 @@ h1 {
 }
 
 .sub-navbar a {
-    color: #5a3208;
+    border:1px;
+    color: #000000;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;

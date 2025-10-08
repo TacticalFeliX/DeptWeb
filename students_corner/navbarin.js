@@ -100,7 +100,7 @@ function initializeInteractiveScripts() {
                         { name: "BTech Batch'26", href: 'btech26.html' }
                     ]
                 },
-                { name: 'Alumni', href: 'almuni.html' }
+                { name: 'Alumni', href: 'alumni.html' }
             ]
         },
         { name: 'RESEARCH', subItems: [{ name: 'Research Divisions', href: '../resdivs.html' }, { name: 'Research Facilites', href: '../resfacs.html' }] },

@@ -99,13 +99,13 @@ function initializeInteractiveScripts() {
                         { name: "BTech Batch'26", href: 'students_corner/btech26.html' }
                     ]
                 },
-                { name: 'Alumni', href: 'students_corner/almuni.html' },]
+                { name: 'Alumni', href: 'students_corner/alumni.html' },]
         },{ name: 'RESEARCH', subItems: [{ name: 'Research Divisions', href: 'resdivs.html' }, { name: 'Research Facilites', href: 'resfacs.html' }] },
         { name: 'ACTIVITIES', 
             subItems: [
                 { name: 'Physics Club', href: 'phyclub.html' }, 
-                { name: 'Seminars AND Colloquiums', href: 'seminars.html' },
-                { name: 'Gallert', href: 'gallery.html' },
+                { name: 'Seminars & Colloquiums', href: 'seminars.html' },
+                { name: 'Gallery', href: 'gallery.html' },
                 { name: 'Awards & Achievements', href: 'achievements.html' }
             ] 
         },
