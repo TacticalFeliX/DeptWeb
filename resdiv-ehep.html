@@ -54,17 +54,14 @@
                                 card.id = person.ID.trim().toLowerCase();
 
                                 card.innerHTML = `
-                <img src="files/prof-images/${person.ImageFile}" alt="${person.Name}" />
-                <div class="faculty-name">${person.Name}</div>
-                <div class="faculty-info">
-                  <p><i>${person.Position}</i></p>
-                  <p><strong>Research Interests:</strong></p>
-                  ${person.ResearchInterests?.split(';').map((r, i) => `<p>${i + 1}. ${r.trim()}</p>`).join('') || ''}
-                  ${person.Experiments ? `<p><strong>Experiments:</strong> ${person.Experiments}</p>` : ''}
-                  <p><strong>Email:</strong> ${person.Email}</p>
-                </div>
-                ${person.ReadMoreURL ? `<a class="read-more" href="${person.ReadMoreURL}" target="_blank">Read more</a>` : ''}
-              `;
+              <img src="files/prof-images/${person.ImageFile}" alt="${person.Name}" />
+              <a class="faculty-name, read-more" href="${person.ReadMoreURL}" target="_blank">${person.Name}</a>
+              <div class="faculty-info">
+                <p><i>${person.Position}</i></p>
+                <p><strong>Email:</strong> <a href="mailto:${person.Email}" style="text-decoration: none; color: inherit;">${person.Email}</a></p>
+                <p><strong>Phone:</strong> ${person.Phone || 'N/A'}</p>
+                <p><strong>Office Address:</strong> ${person.OffAdd || 'N/A'}</p>
+              </div>`;
 
                                 container.appendChild(card);
                             }
