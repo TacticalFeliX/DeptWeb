@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="navbar.css">
-    <!-- REQUIRED LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
@@ -37,40 +36,18 @@
                     <p class="section-text">Our faculty are leaders in their fields, dedicated to both mentorship and
                         groundbreaking discovery.</p>
                 </div>
-                <div class="image-container">
-                    <div class="image-bg-shape"></div>
-                    <img src="" alt="Campus" />
+                <div class="achievements-carousel-container">
+                     <h3 class="achievements-title">Recent Awards & Achievements</h3>
+                    <div class="achievements-carousel-track" id="achievements-track">
+                    </div>
                 </div>
             </section>
             <section class="animated-section">
                 <div class="section-header">
                     <p class="section-pretitle">News</p>
                     <h2 class="section-title font-serif">Upcoming Events</h2>
-                </div>
-                <div class="research-grid">
-                    <div class="research-card">
-                        <div class="image-wrapper"><img src="https://placehold.co/600x400/1E293B/FFFFFF?text=Quantum"
-                                alt="Quantum Information"></div>
-                        <div class="card-content">
-                            <h3 class="card-title">Quantum Information</h3>
-                            <p class="card-description">Exploring the future of computing and secure communication.</p>
-                        </div>
-                    </div>
-                    <div class="research-card">
-                        <div class="image-wrapper"><img src="https://placehold.co/600x400/0F172A/FFFFFF?text=Cosmos"
-                                alt="Cosmology & Gravity"></div>
-                        <div class="card-content">
-                            <h3 class="card-title">Cosmology & Gravity</h3>
-                            <p class="card-description">Investigating the origins and ultimate fate of the universe.</p>
-                        </div>
-                    </div>
-                    <div class="research-card">
-                        <div class="image-wrapper"><img src="https://placehold.co/600x400/334155/FFFFFF?text=Materials"
-                                alt="Materials Science"></div>
-                        <div class="card-content">
-                            <h3 class="card-title">Materials Science</h3>
-                            <p class="card-description">Designing novel materials with extraordinary properties.</p>
-                        </div>
+                    <div class="Events-carousel-conatiner">
+                        <div class="Events-carousel-track" id="Events-track">
                     </div>
                 </div>
             </section>
@@ -152,6 +129,105 @@
                     });
                 }
             }
+
+        const achievementssheeturl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5gY-b-gq_l8X-h8Y_l8X-h8Y_l8X-h8Y_l8X-h8Y_l8X-h8Y/pub?gid=0&single=true&output=csv'; // Replace with your actual URL
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(val => val.replace(/"/g, ''));
+                const entry = {};
+                headers.forEach((header, i) => { entry[header.trim()] = values[i].trim(); });
+                return entry;
+            });
+        }
+        
+        async function populateAchievements() {
+            const track = document.getElementById('achievements-track');
+            if (!track) return;
+            
+            try {
+                const response = await fetch(achievementssheeturl);
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                const csvData = await response.text();
+                const achievementsData = parseCSV(csvData);
+                
+                
+                const allAchievements = [...achievementsData, ...achievementsData];
+
+                track.innerHTML = ''; 
+                allAchievements.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'achievement-card';
+                    card.innerHTML = `
+                        <div class="achievement-icon"><i class="${item.Icon || 'fa-solid fa-trophy'}"></i></div>
+                        <h3 class="achievement-card-title">${item.Title || 'New Achievement'}</h3>
+                        <p class="achievement-description">${item.Description || 'Details to be updated.'}</p>
+                        <p class="achievement-recipient">${item.Recipient || ''}</p>
+                    `;
+                    track.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Failed to fetch or process achievements data:", error);
+                track.innerHTML = '<p class="error-message">Could not load achievements at this time.</p>';
+            }
+        }
+
+        populateAchievements();
+
+
+        const eventsheeturl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5gY-b-gq_l8X-h8Y_l8X-h8Y_l8X-h8Y_l8X-h8Y_l8X-h8Y/pub?gid=0&single=true&output=csv'; // Replace with your actual URL
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',');
+            return lines.slice(1).map(line => {
+                const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(val => val.replace(/"/g, ''));
+                const entry = {};
+                headers.forEach((header, i) => { entry[header.trim()] = values[i].trim(); });
+                return entry;
+            });
+        }
+        
+        async function populateAchievements() {
+            const track = document.getElementById('Events-track');
+            if (!track) return;
+            
+            try {
+                const response = await fetch(eventsheeturl);
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                const csvData = await response.text();
+                const achievementsData = parseCSV(csvData);
+                
+                
+                const allAchievements = [...achievementsData, ...achievementsData];
+
+                track.innerHTML = ''; 
+                allAchievements.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'research-card';
+                    card.innerHTML = `
+                        <div class="event-icon"><i class="${item.Icon || 'fa-solid fa-trophy'}"></i></div>
+                        <h3 class="event-card-title">${item.Title || 'New Achievement'}</h3>
+                        <p class="event-description">${item.Description || 'Details to be updated.'}</p>
+                        <p class="event-recipient">${item.Recipient || ''}</p>
+                    `;
+                    track.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Failed to fetch or process achievements data:", error);
+                track.innerHTML = '<p class="error-message">Could not load events at this time.</p>';
+            }
+        }
+
+        populateAchievements();
 
             // --- Scroll Animation Logic ---
             const animatedSections = document.querySelectorAll('.animated-section');

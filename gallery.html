@@ -4,37 +4,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B.Tech. in Engineering Physics - IIT Indore</title>
+    <title>Gallery</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navbar.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="navbar.css">
     <style>
-        div.gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
         }
 
-        div.gallery-item {
-            margin: 5px;
-            border: 1px solid #ccc;
-            width: 200px;
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #333;
         }
 
-        div.gallery-item:hover {
-            border: 1px solid #777;
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
         }
 
-        div.gallery-item img {
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            /* Fixed rectangle size */
+            object-fit: cover;
+            /* Crops while keeping aspect ratio */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .modal-content img {
             width: 100%;
             height: auto;
+            display: block;
+            border-radius: 8px;
         }
 
-        div.gallery-item div.desc {
-            padding: 15px;
-            text-align: center;
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -43,100 +104,43 @@
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
 
-    </head>
+    <div class="container">
+        <h1>Image Gallery</h1>
 
-    <body>
-        <div class="container">
-            <h1>Image Gallery</h1>
-            <div class="gallery">
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image2.png">
-                        <img src="files/gallery-images/image2.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image3.png">
-                        <img src="files/gallery-images/image3.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image4.png">
-                        <img src="files/gallery-images/image4.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image2.png">
-                        <img src="files/gallery-images/image2.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image2.png">
-                        <img src="files/gallery-images/image2.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image3.png">
-                        <img src="files/gallery-images/image3.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image4.png">
-                        <img src="files/gallery-images/image4.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image2.png">
-                        <img src="files/gallery-images/image2.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image2.png">
-                        <img src="files/gallery-images/image2.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image3.png">
-                        <img src="files/gallery-images/image3.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image4.png">
-                        <img src="files/gallery-images/image4.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-                <div class="gallery-item">
-                    <a target="_blank" href="files/gallery-images/image2.png">
-                        <img src="files/gallery-images/image2.png" alt="altname" width="600">
-                    </a>
-                    <div class="desc">description</div>
-                </div>
-
-            </div>
+        <div class="gallery">
+            <img src="files/gallery-images/image2.png" alt="Gallery Image 1" onclick="openModal(this)">
+            <img src="files/gallery-images/image3.png" alt="Gallery Image 2" onclick="openModal(this)">
+            <img src="files/gallery-images/image4.png" alt="Gallery Image 3" onclick="openModal(this)">
+            <img src="files/gallery-images/image2.png" alt="Gallery Image 4" onclick="openModal(this)">
+            <img src="files/gallery-images/image2.png" alt="Gallery Image 5" onclick="openModal(this)">
+            <img src="files/gallery-images/image5.png" alt="Gallery Image 6" onclick="openModal(this)">
+            <img src="files/gallery-images/image2.png" alt="Gallery Image 7" onclick="openModal(this)">
+            <img src="files/gallery-images/image3.png" alt="Gallery Image 8" onclick="openModal(this)">
         </div>
 
-        <footer id="footer" class="footer"></footer>
-        <script src="navbar.js"></script>
-    </body>
+        <!-- Modal -->
+        <div id="imageModal" class="modal" onclick="closeModal()">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <img id="fullImage" src="" alt="Full Image">
+            </div>
+        </div>
+    </div>
+    <script>
+        function openModal(imgElement) {
+            const modal = document.getElementById("imageModal");
+            const fullImg = document.getElementById("fullImage");
+            fullImg.src = imgElement.src.replace(/\/\d+\/\d+$/, '/1200/800'); // load larger version if available
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+    </script>
+
+    <footer id="footer" class="footer"></footer>
+    <script src="navbar.js"></script>
+</body>
 
 </html>

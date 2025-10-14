@@ -1,9 +1,9 @@
-// This robust listener waits for the entire page, including all scripts, to be fully loaded.
+
 window.addEventListener('load', () => {
     const headerContainer = document.getElementById('header');
     const sidebarContainer = document.getElementById('sidebar');
     const footerContainer = document.getElementById('footer');
-    // --- Inject Header HTML ---
+
     headerContainer.innerHTML = `
                 <div class="header-container">
                     <a href="#" class="logo-container">
@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
                     </button>
                 </div>
             `;
-    // --- Inject Sidebar HTML ---
+
     sidebarContainer.innerHTML = `
                 <div class="sidebar-header">
                     <h3 style="font-weight: 600; font-size: 1.2rem;">Menu</h3>
@@ -27,7 +27,7 @@ window.addEventListener('load', () => {
                 </div>
                 <nav id="sidebar-nav" class="sidebar-nav"></nav>
             `;
-    // --- Inject Footer HTML ---
+
     footerContainer.innerHTML = `
                 <div class="footer-container">
                   <div class="footer-grid">
@@ -64,11 +64,9 @@ window.addEventListener('load', () => {
                 </div>
             `;
 });
-// This robust listener waits for the entire page, including all scripts, to be fully loaded.
 window.addEventListener('load', () => {
     const sidebarOverlay = document.getElementById('sidebar-overlay');
 
-    // --- Now that HTML is injected, run the interactive scripts ---
     initializeInteractiveScripts();
 });
 
@@ -112,13 +110,13 @@ function initializeInteractiveScripts() {
         { name: 'CONTACT', href: '#footer' },
     ];
 
-    // --- Create Navigation Menus ---
+
     desktopNav.innerHTML = '';
     sidebarNav.innerHTML = '';
     navigationItems.forEach((item, index) => {
         const desktopItem = document.createElement('div');
         desktopItem.className = 'nav-item';
-        // Check if there are subItems to decide between a button and a link
+
         let desktopLinkHTML = '';
 if (item.subItems) {
     desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
@@ -163,7 +161,7 @@ if (item.subItems) {
         mobileItemDiv.innerHTML = mobileLinkHTML;
         if (item.subItems) {
             const link = mobileItemDiv.querySelector('.sidebar-link');
-            // Only prevent the default if there are sub-items to toggle
+
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const submenu = document.getElementById(`submenu-${index}`);
@@ -173,7 +171,7 @@ if (item.subItems) {
         sidebarNav.appendChild(mobileItemDiv);
     });
 
-    // --- Event Listeners ---
+
     hamburgerBtn.addEventListener('click', () => {
         sidebar.classList.add('active');
         sidebarOverlay.classList.add('active');
