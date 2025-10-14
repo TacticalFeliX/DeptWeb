@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievements Gallery</title>
+
+  <link rel="stylesheet" href="navbar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f7f7f7;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+      color: #333;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .gallery-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.1em;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    .card-text {
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    @media (max-width: 1000px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="header" class="header"></header>
+  <div id="sidebar" class="sidebar"></div>
+
+  <h1>Achievements Gallery</h1>
+
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- Cards will be inserted here -->
+  </div>
+
+  <script>
+    // Fetch and parse CSV
+    fetch('files/awards.csv')
+      .then(response => response.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function (results) {
+            const data = results.data;
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            data.forEach(item => {
+              if (item.Title && item.Text && item["image link"]) {
+                const card = document.createElement('div');
+                card.className = 'gallery-card';
+
+                card.innerHTML = `
+                  <img src="${item["image link"]}" alt="${item.Title}">
+                  <div class="card-content">
+                    <div class="card-title">${item.Title}</div>
+                    <div class="card-text">${item.Text}</div>
+                  </div>
+                `;
+                grid.appendChild(card);
+              }
+            });
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Error loading CSV:", error);
+        document.getElementById('gallery-grid').innerHTML = "<p style='color:red;'>Failed to load gallery data.</p>";
+      });
+  </script>
+
+  <footer id="footer" class="footer"></footer>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

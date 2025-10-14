@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="navbar.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+      max-height: 80%;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header id="header" class="header"></header>
+  <div id="sidebar" class="sidebar"></div>
+
+  <div class="container">
+    <h1>Image Gallery</h1>
+
+    <div class="gallery" id="gallery-container"></div>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <img id="fullImage" src="" alt="Full Image">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function loadGallery() {
+      const response = await fetch('gallery.csv');
+      const text = await response.text();
+
+      const rows = text.trim().split('\n').slice(1); // skip header
+      const container = document.getElementById('gallery-container');
+
+      rows.forEach(row => {
+        const [SNo, Title, FilePath] = row.split(',').map(x => x.trim());
+        if (FilePath) {
+          const img = document.createElement('img');
+          img.src = ImagePath;
+          img.alt = Title || "Gallery Image";
+          img.onclick = () => openModal(img);
+          container.appendChild(img);
+        }
+      });
+    }
+
+    function openModal(imgElement) {
+      const modal = document.getElementById("imageModal");
+      const fullImg = document.getElementById("fullImage");
+      fullImg.src = imgElement.src;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+
+    loadGallery();
+  </script>
+
+  <footer id="footer" class="footer"></footer>
+  <script src="navbar.js"></script>
+</body>
+
+</html>
