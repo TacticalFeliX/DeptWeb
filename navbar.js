@@ -122,7 +122,7 @@ if (item.subItems) {
     let dropdownHTML = '<div class="dropdown-menu">';
     item.subItems.forEach(sub => {
         if (sub.subItems) {
-            // Nested submenu
+            
             dropdownHTML += `
               <div class="dropdown-submenu">
                 <a href="#" class="dropdown-link">${sub.name} ▸</a>
@@ -138,7 +138,6 @@ if (item.subItems) {
     dropdownHTML += '</div>';
     desktopLinkHTML += dropdownHTML;
 } else {
-    // For items without sub-menus, use a standard anchor tag
     desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
 }
 
@@ -185,20 +184,21 @@ if (item.subItems) {
 
     sidebarCloseBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
-
-    // --- Scroll Logic ---
-    /*const isHomePage = true;
-    if (isHomePage) {
-        header.classList.add('transparent');
-    }
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 30) {
-            header.classList.add('scrolled');
-            if (isHomePage) header.classList.remove('transparent');
-        } else {
-            header.classList.remove('scrolled');
-            if (isHomePage) header.classList.add('transparent');
-        }
-    });*/
 }
+
+document.querySelectorAll('.dropdown-submenu > .dropdown-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const submenu = link.nextElementSibling;
+    submenu.classList.toggle('show');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  document.querySelectorAll('.dropdown-menu.nested.show').forEach(menu => {
+    if (!menu.contains(e.target)) {
+      menu.classList.remove('show');
+    }
+  });
+});
