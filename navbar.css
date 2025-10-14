@@ -159,8 +159,6 @@ body.sidebar-open {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    /* Remove the margin-top that creates the gap */
-    /* margin-top: 0.5rem; */
     width: max-content;
     background-color: white;
     border-radius: 0.375rem;
@@ -191,11 +189,61 @@ body.sidebar-open {
     cursor: pointer;
 }
 
+.dropdown-menu .nav-item {
+    position: relative;
+}
+
+.dropdown-menu .has-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    transform: translateX(0);
+    margin-left: 0.5rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu .has-submenu:hover > .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.dropdown-menu .has-submenu > .dropdown-link::after {
+    content: '▶';
+    float: right;
+    font-size: 0.75rem;
+    color: #64748b;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-menu .has-submenu:hover > .dropdown-link::after {
+    transform: rotate(90deg);
+    color: #2563eb;
+}
+
+
+.dropdown-menu {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.nav-item:hover .dropdown-menu,
+.dropdown-menu .nav-item:hover .dropdown-menu {
+    z-index: 20;
+}
+
+
 .dropdown-link:hover {
     background-color: #f1f5f9;
 }
 
-/* --- Hamburger Menu --- */
+
 .hamburger-btn {
     display: block;
     padding: 0.5rem;
@@ -204,7 +252,6 @@ body.sidebar-open {
     border: none;
 }
 
-/* FIX: Changed breakpoint to 1200px */
 @media (min-width: 1200px) {
     .hamburger-btn {
         display: none;
@@ -318,10 +365,6 @@ body.sidebar-open {
 .sidebar-submenu-link:hover {
     background-color: #e2e8f0;
 }
-
-/* --- Main Content Styles --- */
-/* No padding needed as hero is full screen */
-/* --- Hero Section --- */
 .hero-section {
     position: relative;
     height: 100vh;
@@ -665,4 +708,36 @@ body.sidebar-open {
 .footer-bottom p {
     font-size: 0.875rem;
     color: #64748b;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  padding: 0.5rem 0;
+}
+
+.nav-item:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu.nested {
+  top: 0;
+  left: 100%;
+  display: none;
+}
+
+.dropdown-submenu:hover > .dropdown-menu.nested {
+  display: block;
+}
+.dropdown-menu.nested.show {
+  display: block;
 }
