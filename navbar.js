@@ -103,8 +103,7 @@ function initializeInteractiveScripts() {
             subItems: [
                 { name: 'Physics Club', href: 'phyclub.html' }, 
                 { name: 'Seminars & Colloquiums', href: 'seminars.html' },
-                { name: 'Gallery', href: 'gallery.html' },
-                { name: 'Awards & Achievements', href: 'achievements.html' }
+                { name: 'Gallery', href: 'gallery.html' }
             ] 
         },
         { name: 'CONTACT', href: '#footer' },
