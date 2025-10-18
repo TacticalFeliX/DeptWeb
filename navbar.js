@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
                   <div class="footer-grid">
                     <div class="footer-about">
                       <div class="footer-logo-container">
-                        <img src="./files/images/logo1.webp" alt="Logo" />
+                        <img src="/files/images/logo1.webp" alt="Logo" />
                         <div class="footer-logo-text">
                           <h2>Department of Physics</h2>
                           <p>IIT Indore</p>
@@ -80,47 +80,47 @@ function initializeInteractiveScripts() {
     const header = document.getElementById('header');
 
     const navigationItems = [
-        { name: 'HOME', href: '../index.html' },
+        { name: 'HOME', href: '/index.html' },
         {
             name: 'ABOUT US', subItems: [
-                { name: 'HOD Desk', href: '../hoddesk.html' },
+                { name: 'HOD Desk', href: '/hoddesk.html' },
                 { name: 'Department Insights', href: '../depins.html' }
             ]
         },
         { name: 'ACADEMICS', subItems: [
-            { name: 'B.Tech (Engg Physics)', href: '../btech.html' }, 
-            { name: 'M.Sc. in Physics', href: '../mscphy.html' }, 
-            { name: 'PhD Program', href: '../phdphy.html' }
+            { name: 'B.Tech (Engg Physics)', href: '/btech.html' }, 
+            { name: 'M.Sc. in Physics', href: '/mscphy.html' }, 
+            { name: 'PhD Program', href: '/phdphy.html' }
         ] 
         },
         {
             name: 'PEOPLE', subItems: [
-                { name: 'Faculty', href: '../faculty.html' },
-                { name: 'Former Faculty', href: '../formerfaculty.html' },
-                { name: 'Administration', href: '../admin.html' },
-                { name: 'Postdocs & Visitors', href: '../vis.html' },
-                { name: 'PhD Students', href: '../students_corner/phdstus.html' },
-                { name: 'MS Students', href: '../students_corner/mscstus.html' },
+                { name: 'Faculty', href: '/faculty.html' },
+                { name: 'Former Faculty', href: '/formerfaculty.html' },
+                { name: 'Administration', href: '/admin.html' },
+                { name: 'Postdocs & Visitors', href: '/vis.html' },
+                { name: 'PhD Students', href: '/students_corner/phdstus.html' },
+                { name: 'MS Students', href: '/students_corner/mscstus.html' },
                 {
                     name: 'BTech Students',
                     subItems: [
-                        { name: "BTech Batch'29", href: '../students_corner/btech29.html' },
-                        { name: "BTech Batch'28", href: '../students_corner/btech28.html' },
-                        { name: "BTech Batch'27", href: '../students_corner/btech27.html' }
+                        { name: "BTech Batch'29", href: '/students_corner/btech29.html' },
+                        { name: "BTech Batch'28", href: '/students_corner/btech28.html' },
+                        { name: "BTech Batch'27", href: '/students_corner/btech27.html' }
                     ]
                 },
                 { name: 'Alumni', href: '../students_corner/alumni.html' },]
         }, { name: 'RESEARCH', subItems: [
-            { name: 'Research Divisions', href: '../resdivs.html' },
-            { name: 'Research Facilites', href: '../resfacs.html' }
+            { name: 'Research Divisions', href: '/resdivs.html' },
+            { name: 'Research Facilites', href: '/resfacs.html' }
         ]
         },
         {
             name: 'ACTIVITIES',
             subItems: [
-                { name: 'Physics Club', href: '../phyclub.html' },
-                { name: 'Seminars & Colloquiums', href: '../seminars.html' },
-                { name: 'Gallery', href: '../gallery.html' }
+                { name: 'Physics Club', href: '/phyclub.html' },
+                { name: 'Seminars & Colloquiums', href: '/seminars.html' },
+                { name: 'Gallery', href: '/gallery.html' }
             ]
         },
         { name: 'CONTACT', href: '#footer' },
