@@ -4,63 +4,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../navbar.css">
-    <link rel="stylesheet" href="studentstyle.css" />
+  <link rel="stylesheet" href="../navbar.css">
+  <link rel="stylesheet" href="../students_corner/studentstyle.css" />
   <title>Graduated Ph.D. Students | Department of Physics</title>
 </head>
 
 <body>
-    <header id="header" class="header"></header>
-    <div id="sidebar" class="sidebar"></div>
-  <!-- <div class="sub-navbar">
-    <a href="phdstus.html">CURRENT PHD STUDENTS</a>
-    <a href="gradphds.html" class="selected">GRADUATED PHDS</a>
-  </div> -->
+  <header id="header" class="header"></header>
+  <div id="sidebar" class="sidebar"></div>
   <div class="container">
-    <h1>Alumni Corner</h1>
+    <h1>Visitors</h1>
     <div class="search-wrapper">
-      <input type="text" id="facultySearch" placeholder="Search Students..." />
+      <input type="text" id="searchInput" placeholder="Search Students..." />
     </div>
+
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
             <th>S.No.</th>
             <th>Name</th>
-            <th>Present Status</th>
-            <th>Program</th>
-            <th>Graduation Year</th>
-            <th>Supervisor</th>
-            <th>Thesis Title</th>
           </tr>
         </thead>
         <tbody id="phdTableBody">
-          <!-- Content will be inserted here dynamically -->
+          <!-- Rows inserted dynamically -->
         </tbody>
       </table>
     </div>
   </div>
 
+  <footer id="footer" class="footer"></footer>
+
+  <!-- CSV parsing -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
   <script>
     // Load and parse CSV
-    fetch('../files/phds.csv')
+    fetch('../files/visitors.csv')
       .then(response => response.text())
       .then(csv => {
         const data = Papa.parse(csv, { header: true }).data;
         const tbody = document.getElementById('phdTableBody');
+
         data.forEach((row, index) => {
-          if (row.Name) {
+          if (row.Name && row.Name.trim() !== "") {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${row.Name}</td>
-            <td>${row.Status}</td>
-            <td>${row.Program}</td>
-            <td>${row.GraduationYear}</td>
-            <td>${row.Supervisor}</td>
-            <td>${row.ThesisTitle}</td>
-          `;
+              <td>${index + 1}</td>
+              <td>${row.Name}</td>
+            `;
             tbody.appendChild(tr);
           }
         });
@@ -70,7 +62,6 @@
     document.getElementById('searchInput').addEventListener('input', function () {
       const filter = this.value.toLowerCase();
       const rows = document.querySelectorAll('#phdTableBody tr');
-
       let visibleIndex = 0;
       rows.forEach(row => {
         if (row.textContent.toLowerCase().includes(filter)) {
@@ -82,24 +73,9 @@
         }
       });
     });
-
   </script>
 
-
-  <script>
-    document.getElementById('searchInput').addEventListener('keyup', function () {
-      const filter = this.value.toLowerCase();
-      const rows = document.querySelectorAll('table tbody tr');
-
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(filter) ? '' : 'none';
-      });
-    });
-  </script>
-  
-    <footer id="footer" class="footer"></footer>
-    <script src="../navbar.js"></script>
+  <script src="../navbar.js"></script>
 </body>
 
 </html>

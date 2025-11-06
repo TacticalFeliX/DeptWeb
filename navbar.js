@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     headerContainer.innerHTML = `
                 <div class="header-container">
                     <a href="#" class="logo-container">
-                        <img src="./files/images/logo1.webp" alt="IIT Indore Logo" />
+                        <img src="../files/images/logo1.webp" alt="IIT Indore Logo" />
                         <div class="logo-text">
                             <p class="title">Department of Physics</p>
                             <p class="subtitle">Indian Instuite Of Technology Indore</p>
@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
                   <div class="footer-grid">
                     <div class="footer-about">
                       <div class="footer-logo-container">
-                        <img src="./files/images/logo1.webp" alt="Logo" />
+                        <img src="/files/images/logo1.webp" alt="Logo" />
                         <div class="footer-logo-text">
                           <h2>Department of Physics</h2>
                           <p>IIT Indore</p>
@@ -80,31 +80,48 @@ function initializeInteractiveScripts() {
     const header = document.getElementById('header');
 
     const navigationItems = [
-        { name: 'HOME', href: 'index.html' },
-        { name: 'ABOUT US', subItems: [{ name: 'HOD Desk', href: 'hoddesk.html' }, { name: 'Department Insights', href: 'depins.html' }] },
-        { name: 'ACADEMICS', subItems: [{ name: 'B.Tech (Engg Physics)', href: 'btech.html' }, { name: 'M.Sc. in Physics', href: 'mscphy.html' }, { name: 'PhD Program', href: 'phdphy.html' }] },
-        { name: 'PEOPLE', subItems: [
-            { name: 'Faculty', href: 'faculty.html' },
+        { name: 'HOME', href: '/index.html' },
+        {
+            name: 'ABOUT US', subItems: [
+                { name: 'HOD Desk', href: 'hoddesk.html' },
+                { name: 'Department Insights', href: '../depins.html' }
+            ]
+        },
+        { name: 'ACADEMICS', subItems: [
+            { name: 'B.Tech (Engg Physics)', href: 'btech.html' }, 
+            { name: 'M.Sc. in Physics', href: 'mscphy.html' }, 
+            { name: 'PhD Program', href: 'phdphy.html' }
+        ] 
+        },
+        {
+            name: 'PEOPLE', subItems: [
+                { name: 'Faculty', href: 'faculty.html' },
                 { name: 'Former Faculty', href: 'formerfaculty.html' },
-            { name: 'Administration', href: 'admin.html' },
-            { name: 'Postdocs & Visitors', href: 'pdocsvis.html' }, 
-            { name: 'PhD Students', href: 'students_corner/phdstus.html' }, 
-            { name: 'MS Students', href: 'students_corner/mscstus.html' },
-            { name: 'BTech Students',
+                { name: 'Administration', href: 'admin.html' },
+                { name: 'Postdocs & Visitors', href: 'vis.html' },
+                { name: 'PhD Students', href: 'students_corner/phdstus.html' },
+                { name: 'MS Students', href: 'students_corner/mscstus.html' },
+                {
+                    name: 'BTech Students',
                     subItems: [
+                        { name: "BTech Batch'29", href: 'students_corner/btech29.html' },
                         { name: "BTech Batch'28", href: 'students_corner/btech28.html' },
-                        { name: "BTech Batch'27", href: 'students_corner/btech27.html' },
-                        { name: "BTech Batch'26", href: 'students_corner/btech26.html' }
+                        { name: "BTech Batch'27", href: 'students_corner/btech27.html' }
                     ]
                 },
-                { name: 'Alumni', href: 'students_corner/alumni.html' },]
-        },{ name: 'RESEARCH', subItems: [{ name: 'Research Divisions', href: 'resdivs.html' }, { name: 'Research Facilites', href: 'resfacs.html' }] },
-        { name: 'ACTIVITIES', 
+                { name: 'Alumni', href: '../students_corner/alumni.html' },]
+        }, { name: 'RESEARCH', subItems: [
+            { name: 'Research Divisions', href: 'resdivs.html' },
+            { name: 'Research Facilites', href: 'resfacs.html' }
+        ]
+        },
+        {
+            name: 'ACTIVITIES',
             subItems: [
-                { name: 'Physics Club', href: 'phyclub.html' }, 
+                { name: 'Physics Club', href: 'phyclub.html' },
                 { name: 'Seminars & Colloquiums', href: 'seminars.html' },
                 { name: 'Gallery', href: 'gallery.html' }
-            ] 
+            ]
         },
         { name: 'CONTACT', href: '#footer' },
     ];
@@ -117,13 +134,13 @@ function initializeInteractiveScripts() {
         desktopItem.className = 'nav-item';
 
         let desktopLinkHTML = '';
-if (item.subItems) {
-    desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
-    let dropdownHTML = '<div class="dropdown-menu">';
-    item.subItems.forEach(sub => {
-        if (sub.subItems) {
-            
-            dropdownHTML += `
+        if (item.subItems) {
+            desktopLinkHTML = `<button class="nav-link">${item.name}</button>`;
+            let dropdownHTML = '<div class="dropdown-menu">';
+            item.subItems.forEach(sub => {
+                if (sub.subItems) {
+
+                    dropdownHTML += `
               <div class="dropdown-submenu">
                 <a href="#" class="dropdown-link">${sub.name} ▸</a>
                 <div class="dropdown-menu nested">
@@ -131,15 +148,15 @@ if (item.subItems) {
                 </div>
               </div>
             `;
+                } else {
+                    dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`;
+                }
+            });
+            dropdownHTML += '</div>';
+            desktopLinkHTML += dropdownHTML;
         } else {
-            dropdownHTML += `<a href="${sub.href}" class="dropdown-link">${sub.name}</a>`;
+            desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
         }
-    });
-    dropdownHTML += '</div>';
-    desktopLinkHTML += dropdownHTML;
-} else {
-    desktopLinkHTML = `<a href="${item.href}" class="nav-link">${item.name}</a>`;
-}
 
         desktopItem.innerHTML = desktopLinkHTML;
         desktopNav.appendChild(desktopItem);
@@ -187,18 +204,18 @@ if (item.subItems) {
 }
 
 document.querySelectorAll('.dropdown-submenu > .dropdown-link').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const submenu = link.nextElementSibling;
-    submenu.classList.toggle('show');
-  });
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const submenu = link.nextElementSibling;
+        submenu.classList.toggle('show');
+    });
 });
 
 document.addEventListener('click', (e) => {
-  document.querySelectorAll('.dropdown-menu.nested.show').forEach(menu => {
-    if (!menu.contains(e.target)) {
-      menu.classList.remove('show');
-    }
-  });
+    document.querySelectorAll('.dropdown-menu.nested.show').forEach(menu => {
+        if (!menu.contains(e.target)) {
+            menu.classList.remove('show');
+        }
+    });
 });
