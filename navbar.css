@@ -43,11 +43,12 @@ body.sidebar-open {
 .header-container {
     display: flex;
     height: 8rem;
-    max-width: 80rem;
+    max-width: 100rem;
     margin: auto;
     align-items: center;
     justify-content: space-between;
     padding: 0 1.5rem;
+    background-color: #141c2e ;
 }
 
 .logo-container {
@@ -66,7 +67,7 @@ body.sidebar-open {
     font-size: 1.446rem;
     font-weight: 700;
     line-height: 1.25;
-    color: #0f172a;
+    color: #ffffff;
 }
 
 .header.transparent .logo-text .title {
@@ -76,7 +77,7 @@ body.sidebar-open {
 .logo-text .subtitle {
     font-size: 0.930rem;
     line-height: 1.25;
-    color: #64748b;
+    color: #475569;
 }
 
 .header.transparent .logo-text .subtitle {
@@ -110,7 +111,7 @@ body.sidebar-open {
     align-items: center;
     gap: 0.25rem;
     text-decoration: none;
-    color: #334155;
+    color: #ffffff;
     cursor: pointer;
     background: none;
     border: none;
