@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
     headerContainer.innerHTML = `
                 <div class="header-container">
                     <a href="#" class="logo-container">
-                        <img src="../files/images/logo1.webp" alt="IIT Indore Logo" />
+                        <img src="files/images/logo1.webp" alt="IIT Indore Logo" />
                         <div class="logo-text">
                             <p class="title">Department of Physics</p>
                             <p class="subtitle">Indian Instuite Of Technology Indore</p>
