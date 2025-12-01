@@ -38,7 +38,7 @@
     <script>
         const targetDivision = "Non-linear Dynamics and Complex Networks";
 
-        fetch('files/faculty.csv')
+        fetch('files/data-files/faculty.csv')
             .then(response => response.text())
             .then(csvText => {
                 Papa.parse(csvText, {
@@ -56,7 +56,7 @@
                                 card.id = person.ID.trim().toLowerCase();
 
                                 card.innerHTML = `
-              <img src="files/prof-images/${person.ImageFile}" alt="${person.Name}" />
+              <img src="files/images/faculty-images/${person.ImageFile}" alt="${person.Name}" />
               <a class="faculty-name, read-more" href="${person.ReadMoreURL}" target="_blank">${person.Name}</a>
               <div class="faculty-info">
                 <p><i>${person.Position}</i></p>

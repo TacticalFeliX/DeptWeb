@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTECH STUDENTS</title>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="peoplestyle.css" />
+    <link rel="stylesheet" href="navbar.css" />
+    <link rel="stylesheet" href="studentstyle.css" />
+    </head>
+
+  <body>
+    <header id="header" class="header"></header>
+    <div id="sidebar" class="sidebar"></div>
+    <div class="sub-navbar">
+        <a href="stucorner.html">Students Corner</a>
+        <a href="mscphd.html" class="selected">MSCPHD STUDENTS</a>
+    </div>
+
+    <div class="container">
+      <center>
+        <h2>BTECH BATCH 2029</h2>
+      </center>
+      <div class="search-wrapper">
+        <input type="text" id="studentSearch" placeholder="Search students..." />
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Name</th>
+              <th>Roll No.</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody">
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const targetProgram = "MScPhD";
+      const targetYear = 0;
+
+      fetch("files/data-files/studetails.csv")
+        .then((response) => response.text())
+        .then((csvText) => {
+          Papa.parse(csvText, {
+            header: true,
+            skipEmptyLines: true,
+            transformHeader: (h) => h.trim(),
+            complete: function (results) {
+              const studentData = results.data;
+              const tbody = document.getElementById("studentTableBody");
+              let serialNumber = 1;
+
+              studentData.forEach((student) => {
+                if (
+                  student.Program?.trim().toLowerCase() ===
+                    targetProgram.toLowerCase() &&
+                  Number(student.Year) === targetYear
+                ) {
+                  const row = document.createElement("tr");
+                  row.innerHTML = `
+                      <td>${serialNumber++}</td>
+                      <td>${student.Name}</td>
+                      <td>${student.RollNo}</td>
+                  `;
+                  tbody.appendChild(row);
+                }
+              });
+            },
+          });
+        })
+        .catch((error) => {
+          console.error("Failed to load or render student data:", error);
+          document.getElementById("studentTableBody").innerHTML =
+            "<p style='color:red;'>Failed to load student data.</p>";
+        });
+
+      // Search filter for BTECH students
+      document
+        .getElementById("studentSearch")
+        .addEventListener("keyup", function () {
+          const filter = this.value.toLowerCase();
+          const rows = document.querySelectorAll("#studentTableBody tr");
+          let visibleIndex = 0;
+
+          rows.forEach((row) => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(filter)) {
+              row.style.display = "";
+              // Re-apply zebra-striping for visible rows
+              row.style.backgroundColor =
+                visibleIndex % 2 === 0 ? "#ffffff" : "#f3ffff";
+              visibleIndex++;
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
+    </script>
+
+    <footer id="footer" class="footer"></footer>
+    <script src="navbar.js"></script>
+  </body>
+</html>
