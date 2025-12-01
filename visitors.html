@@ -13,9 +13,9 @@
   <header id="header" class="header"></header>
   <div id="sidebar" class="sidebar"></div>
   <div class="container">
-    <h1>Former Faculty</h1>
+    <h1>Visitors</h1>
     <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="Search Former Faculty..." />
+      <input type="text" id="searchInput" placeholder="Search Visitors..." />
     </div>
 
     <div class="table-wrapper">
@@ -26,7 +26,7 @@
             <th>Name</th>
           </tr>
         </thead>
-        <tbody id="ffacTableBody">
+        <tbody id="visTableBody">
           <!-- Rows inserted dynamically -->
         </tbody>
       </table>
@@ -39,7 +39,7 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <script>
-  const targetPage = "FormerFac";
+  const targetPage = "Visitors";
 
   fetch("files/data-files/info.csv")
     .then((response) => response.text())
@@ -50,7 +50,7 @@
         transformHeader: (h) => h.trim(),
         complete: function (results) {
           const data = results.data;
-          const tbody = document.getElementById("ffacTableBody");
+          const tbody = document.getElementById("visTableBody");
           let serialNumber = 1;
 
           data.forEach((entry) => {
@@ -71,14 +71,14 @@
     })
     .catch((error) => {
       console.error("Failed to load or render visitor data:", error);
-      document.getElementById("ffacTableBody").innerHTML =
+      document.getElementById("phdTableBody").innerHTML =
         "<p style='color:red;'>Failed to load visitor data.</p>";
     });
 
   // Search filter for Visitors
   document.getElementById("searchInput").addEventListener("keyup", function () {
     const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll("#ffacTableBody tr");
+    const rows = document.querySelectorAll("#visTableBody tr");
 
     let visibleIndex = 0;
 

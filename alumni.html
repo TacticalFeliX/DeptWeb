@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../navbar.css">
+    <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="studentstyle.css" />
   <title>Graduated Ph.D. Students | Department of Physics</title>
 </head>
@@ -19,7 +19,7 @@
   <div class="container">
     <h1>Alumni Corner</h1>
     <div class="search-wrapper">
-      <input type="text" id="facultySearch" placeholder="Search Students..." />
+      <input type="text" id="alumniSearch" placeholder="Search Alumni..." />
     </div>
     <div class="table-wrapper">
       <table>
@@ -44,7 +44,7 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script>
     // Load and parse CSV
-    fetch('../files/phds.csv')
+    fetch('files/data-files/phds.csv')
       .then(response => response.text())
       .then(csv => {
         const data = Papa.parse(csv, { header: true }).data;
@@ -67,7 +67,7 @@
       });
 
     // Search filter
-    document.getElementById('searchInput').addEventListener('input', function () {
+    document.getElementById('alumniSearch').addEventListener('input', function () {
       const filter = this.value.toLowerCase();
       const rows = document.querySelectorAll('#phdTableBody tr');
 
@@ -75,7 +75,7 @@
       rows.forEach(row => {
         if (row.textContent.toLowerCase().includes(filter)) {
           row.style.display = '';
-          row.style.backgroundColor = (visibleIndex % 2 === 0) ? '#fff' : '#f7f2ec';
+          row.style.backgroundColor = (visibleIndex % 2 === 0) ? '#fff' : '#f3ffff';
           visibleIndex++;
         } else {
           row.style.display = 'none';
@@ -87,7 +87,7 @@
 
 
   <script>
-    document.getElementById('searchInput').addEventListener('keyup', function () {
+    document.getElementById('alumniSearch').addEventListener('keyup', function () {
       const filter = this.value.toLowerCase();
       const rows = document.querySelectorAll('table tbody tr');
 

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTECH STUDENTS</title>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="../peoplestyle.css" />
-    <link rel="stylesheet" href="../navbar.css" />
+    <link rel="stylesheet" href="peoplestyle.css" />
+    <link rel="stylesheet" href="navbar.css" />
     <link rel="stylesheet" href="studentstyle.css" />
   </head>
 
@@ -14,14 +14,14 @@
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
     <div class="sub-navbar">
-        <a href="btech29.html">BTECH BATCH'29</a>
-        <a href="btech28.html">BTECH BATCH'28</a>
-        <a href="btech27.html" class="selected">BTECH BATCH'27</a>
+      <a href="btech29.html" class="selected">BTECH BATCH'29</a>
+      <a href="btech28.html">BTECH BATCH'28</a>
+      <a href="btech27.html">BTECH BATCH'27</a>
     </div>
 
     <div class="container">
       <center>
-        <h2>BTECH BATCH 2027</h2>
+        <h1>BTech Batch 2029</h1>
       </center>
       <div class="search-wrapper">
         <input type="text" id="studentSearch" placeholder="Search students..." />
@@ -43,9 +43,9 @@
 
     <script>
       const targetProgram = "BTech";
-      const targetYear = 3;
+      const targetYear = 1;
 
-      fetch("studetails.csv")
+      fetch("files/data-files/studetails.csv")
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -95,7 +95,7 @@
               row.style.display = "";
               // Re-apply zebra-striping for visible rows
               row.style.backgroundColor =
-                visibleIndex % 2 === 0 ? "#ffffff" : "#f7f2ec";
+                visibleIndex % 2 === 0 ? "#ffffff" : "#f3ffff";
               visibleIndex++;
             } else {
               row.style.display = "none";

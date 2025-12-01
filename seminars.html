@@ -92,7 +92,7 @@
 
   <!-- JS to load CSV and fill table -->
   <script>
-    fetch('files/seminars.csv')
+    fetch('files/data-files/seminars.csv')
       .then(response => response.text())
       .then(csvText => {
         const parsed = Papa.parse(csvText, { header: true });

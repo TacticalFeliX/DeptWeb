@@ -53,7 +53,7 @@ window.addEventListener('load', () => {
                     <div class="footer-links">
                       <h3>Contact Us</h3>
                       <ul>
-                        <li class="footer-contact-item"><span>📍</span><span>Khandwa Road, Simrol, Indore, 453552</span></li>
+                        <li class="footer-contact-item"><span>📍</span><a href="https://maps.app.goo.gl/tNUXkrzimzpAoLUGA">Khandwa Road, Simrol, Indore, 453552</a></li>
                         <li class="footer-contact-item"><span>📧</span><a href="mailto:info@iiti.ac.in">info@iiti.ac.in</a></li>
                       </ul>
                     </div>
@@ -98,18 +98,19 @@ function initializeInteractiveScripts() {
                 { name: 'Faculty', href: 'faculty.html' },
                 { name: 'Former Faculty', href: 'formerfaculty.html' },
                 { name: 'Administration', href: 'admin.html' },
-                { name: 'Postdocs & Visitors', href: 'vis.html' },
-                { name: 'PhD Students', href: 'students_corner/phdstus.html' },
-                { name: 'MS Students', href: 'students_corner/mscstus.html' },
+                { name: 'Visitors', href: 'visitors.html' },
+                { name: 'PostDocs', href: 'postdocs.html' },
+                { name: 'PhD Students', href: 'phdstus.html' },
+                { name: 'MS Students', href: 'mscstus.html' },
                 {
                     name: 'BTech Students',
                     subItems: [
-                        { name: "BTech Batch'29", href: 'students_corner/btech29.html' },
-                        { name: "BTech Batch'28", href: 'students_corner/btech28.html' },
-                        { name: "BTech Batch'27", href: 'students_corner/btech27.html' }
+                        { name: "BTech Batch'29", href: 'btech29.html' },
+                        { name: "BTech Batch'28", href: 'btech28.html' },
+                        { name: "BTech Batch'27", href: 'btech27.html' }
                     ]
                 },
-                { name: 'Alumni', href: 'students_corner/alumni.html' },]
+                { name: 'Alumni', href: 'alumni.html' },]
         }, { name: 'RESEARCH', subItems: [
             { name: 'Research Divisions', href: 'resdivs.html' },
             { name: 'Research Facilites', href: 'resfacs.html' }

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTECH STUDENTS</title>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="../peoplestyle.css" />
-    <link rel="stylesheet" href="../navbar.css" />
+    <link rel="stylesheet" href="peoplestyle.css" />
+    <link rel="stylesheet" href="navbar.css" />
     <link rel="stylesheet" href="studentstyle.css" />
   </head>
 
@@ -19,7 +19,7 @@
   </div>
     <div class="container">
       <center>
-        <h2>PHD PHYSICS STUDENTS</h2>
+        <h1>PhD Physics Students</h1>
       </center>
       <div class="search-wrapper">
         <input type="text" id="studentSearch" placeholder="Search students..." />
@@ -42,7 +42,7 @@
     <script>
       const targetProgram = "PhD";
 
-      fetch("studetails.csv")
+      fetch("files/data-files/studetails.csv")
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -91,7 +91,7 @@
               row.style.display = "";
               // Re-apply zebra-striping for visible rows
               row.style.backgroundColor =
-                visibleIndex % 2 === 0 ? "#ffffff" : "#f7f2ec";
+                visibleIndex % 2 === 0 ? "#ffffff" : "#f3ffff";
               visibleIndex++;
             } else {
               row.style.display = "none";

@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTECH STUDENTS</title>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="../peoplestyle.css" />
-    <link rel="stylesheet" href="../navbar.css" />
+    <link rel="stylesheet" href="peoplestyle.css" />
+    <link rel="stylesheet" href="navbar.css" />
     <link rel="stylesheet" href="studentstyle.css" />
-    </head>
+  </head>
 
   <body>
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
+    <div class="sub-navbar">
+        <a href="btech29.html">BTECH BATCH'29</a>
+        <a href="btech28.html">BTECH BATCH'28</a>
+        <a href="btech27.html" class="selected">BTECH BATCH'27</a>
+    </div>
 
     <div class="container">
       <center>
-        <h2>MSC PHYSICS STUDENTS</h2>
+        <h1>BTech Batch 2027</h1>
       </center>
       <div class="search-wrapper">
         <input type="text" id="studentSearch" placeholder="Search students..." />
@@ -37,9 +42,10 @@
     </div>
 
     <script>
-      const targetProgram = "MSc";
+      const targetProgram = "BTech";
+      const targetYear = 3;
 
-      fetch("studetails.csv")
+      fetch("files/data-files/studetails.csv")
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {
@@ -54,7 +60,8 @@
               studentData.forEach((student) => {
                 if (
                   student.Program?.trim().toLowerCase() ===
-                    targetProgram.toLowerCase()
+                    targetProgram.toLowerCase() &&
+                  Number(student.Year) === targetYear
                 ) {
                   const row = document.createElement("tr");
                   row.innerHTML = `
@@ -88,7 +95,7 @@
               row.style.display = "";
               // Re-apply zebra-striping for visible rows
               row.style.backgroundColor =
-                visibleIndex % 2 === 0 ? "#ffffff" : "#f7f2ec";
+                visibleIndex % 2 === 0 ? "#ffffff" : "#f3ffff";
               visibleIndex++;
             } else {
               row.style.display = "none";

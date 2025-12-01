@@ -26,7 +26,7 @@
 
   </div>
   <script>
-    fetch('files/faculty.csv')
+    fetch('files/data-files/faculty.csv')
       .then(response => {
         if (!response.ok) throw new Error("CSV file not found or can't be loaded.");
         return response.text();
@@ -56,7 +56,7 @@
 
 
               card.innerHTML = `
-              <img src="files/prof-images/${person.ImageFile}" alt="${person.Name}" />
+              <img src="files/images/faculty-images/${person.ImageFile}" alt="${person.Name}" />
               <a class="faculty-name, read-more" href="${person.ReadMoreURL}" target="_blank">${person.Name}</a>
               <div class="faculty-info">
                 <p><i>${person.Position}</i></p>
@@ -85,19 +85,19 @@
   <script src="navbar.js"></script>
   <script>
     document.getElementById('facultySearch').addEventListener('input', function () {
-      const filter = this.value.toLowerCase();
-      const cards = document.querySelectorAll('.faculty-card');
+  const filter = this.value.toLowerCase();
+  const cards = document.querySelectorAll('.faculty-card');
 
-      cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        card.style.display = text.includes(filter) ? 'block' : 'none';
-      });
-    });
-    fetch("footer.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("footer-placeholder").innerHTML = data;
-      });
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (text.includes(filter)) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+});
+
   </script>
 </body>
 

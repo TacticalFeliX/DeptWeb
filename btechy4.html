@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BTECH STUDENTS</title>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-    <link rel="stylesheet" href="../peoplestyle.css" />
-    <link rel="stylesheet" href="../navbar.css" />
+    <link rel="stylesheet" href="peoplestyle.css" />
+    <link rel="stylesheet" href="navbar.css" />
     <link rel="stylesheet" href="studentstyle.css" />
   </head>
 
@@ -14,14 +14,15 @@
     <header id="header" class="header"></header>
     <div id="sidebar" class="sidebar"></div>
     <div class="sub-navbar">
-        <a href="btech29.html">BTECH BATCH'29</a>
-        <a href="btech28.html" class="selected">BTECH BATCH'28</a>
-        <a href="btech27.html">BTECH BATCH'27</a>
+        <a href="btechy1.html">BTECH BATCH'29</a>
+        <a href="btechy2.html">BTECH BATCH'28</a>
+        <a href="btechy3.html">BTECH BATCH'28</a>
+        <a href="btechy4.html" class="selected">BTECH BATCH'27</a>
     </div>
 
     <div class="container">
       <center>
-        <h2>BTECH BATCH 2028</h2>
+        <h2>BTECH BATCH 2029</h2>
       </center>
       <div class="search-wrapper">
         <input type="text" id="studentSearch" placeholder="Search students..." />
@@ -43,9 +44,9 @@
 
     <script>
       const targetProgram = "BTech";
-      const targetYear = 2;
+      const targetYear = 4;
 
-      fetch("studetails.csv")
+      fetch("files/data-files/studetails.csv")
         .then((response) => response.text())
         .then((csvText) => {
           Papa.parse(csvText, {

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="studentstyle.css" />
+  <title>Postdocs | Department of Physics</title>
+</head>
+
+<body>
+  <header id="header" class="header"></header>
+  <div id="sidebar" class="sidebar"></div>
+
+  <div class="container">
+    <h1>Postdoctoral Researchers</h1>
+
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search Postdocs..." />
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Supervisor Name</th>
+            <th>Current Status</th>
+          </tr>
+        </thead>
+
+        <tbody id="postdocTableBody">
+          <!-- Dynamic rows -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer id="footer" class="footer"></footer>
+
+  <!-- CSV Parser -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <script>
+  const targetPage = "Postdocs";
+
+  // Load and parse postdocs.csv
+  fetch('files/data-files/info.csv')
+    .then(response => response.text())
+    .then(csv => {
+      const data = Papa.parse(csv, { header: true, skipEmptyLines: true }).data;
+      const tbody = document.getElementById('postdocTableBody');
+
+      let count = 1;
+
+      data.forEach(row => {
+        const pageValue = (row.Page || "").trim().toLowerCase();
+
+        if (
+          pageValue === targetPage.toLowerCase() &&
+          row.Name &&
+          row.Name.trim() !== ""
+        ) {
+          const tr = document.createElement('tr');
+
+          tr.innerHTML = `
+            <td>${count++}</td>
+            <td>${row.Name}</td>
+            <td>${row.Designation || ""}</td>
+            <td>${row.SupervisorName || ""}</td>
+            <td>${row.CurrentStatus || ""}</td>
+          `;
+
+          tbody.appendChild(tr);
+        }
+      });
+    })
+    .catch(err => console.error("CSV load error:", err));
+
+  // Search filter
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#postdocTableBody tr');
+
+    let visibleIndex = 0;
+
+    rows.forEach(row => {
+      if (row.textContent.toLowerCase().includes(filter)) {
+        row.style.display = '';
+        row.style.backgroundColor = (visibleIndex % 2 === 0) ? '#fff' : '#f3ffff';
+        visibleIndex++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
+  <script src="../navbar.js"></script>
+</body>
+
+</html>
