@@ -6,10 +6,10 @@ window.addEventListener('load', () => {
 
     headerContainer.innerHTML = `
                 <div class="header-container">
-                    <a href="#" class="logo-container">
+                    <a href="index.html" class="logo-container">
                         <img src="files/images/logo1.webp" alt="IIT Indore Logo" />
                         <div class="logo-text">
-                            <p class="title">Department of Physics</p>
+                            <p  class="title">Department of Physics</p>
                             <p class="subtitle">Indian Instuite Of Technology Indore</p>
                         </div>
                     </a>
@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
                   <div class="footer-grid">
                     <div class="footer-about">
                       <div class="footer-logo-container">
-                        <img src="/files/images/logo1.webp" alt="Logo" />
+                        <img src="files/images/logo1.webp" alt="Logo" />
                         <div class="footer-logo-text">
                           <h2>Department of Physics</h2>
                           <p>IIT Indore</p>
@@ -44,10 +44,10 @@ window.addEventListener('load', () => {
                     <div class="footer-links">
                       <h3>Quick Links</h3>
                       <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Research</a></li>
-                        <li><a href="#">Academics</a></li>
-                        <li><a href="#">Activites</a></li>
+                        <li><a href="depins.html">Dept. Insights</a></li>
+                        <li><a href="resdivs.html">Research Divisions</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="awards.html">Awards & AChievements</a></li>
                       </ul>
                     </div>
                     <div class="footer-links">
