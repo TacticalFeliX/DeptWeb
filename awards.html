@@ -56,12 +56,10 @@
       <thead>
         <tr>
           <th>S.No.</th>
-          <th>Name of the Event</th>
-          <th>Name of Coordinator(s)</th>
-          <th>Date of the Event</th>
-          <th>Speaker</th>
-          <th>Total No. of Participants (Faculty & Students)</th>
-          <th>Remarks</th>
+          <th>Title</th>
+          <th>Recipient</th>
+          <th>Date</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody id="seminarTableBody">
@@ -79,31 +77,31 @@
 
   <!-- JS to load CSV and fill table -->
   <script>
-    fetch('files/seminars.csv')
-      .then(response => response.text())
-      .then(csvText => {
-        const parsed = Papa.parse(csvText, { header: true });
-        console.log("Parsed Data:", parsed.data); // Debug
+  fetch('files/data-files/achievements.csv')
+    .then(response => response.text())
+    .then(csvText => {
+      const parsed = Papa.parse(csvText, { header: true });
+      console.log("Parsed Data:", parsed.data); // Debug
 
-        const tableBody = document.getElementById('seminarTableBody');
-        parsed.data.forEach((row, index) => {
-          if (row.Name && row.Name.trim() !== "") {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
+      const tableBody = document.getElementById('seminarTableBody');
+      parsed.data.forEach((row, index) => {
+        // FIXED THIS LINE ↓↓↓
+        if (row.Title && row.Title.trim() !== "") {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
             <td>${index + 1}</td>
-            <td>${row["Name"]}</td>
-            <td>${row["Coordinators"]}</td>
+            <td>${row["Title"]}</td>
+            <td>${row["Recipient"]}</td>
             <td>${row["Date"]}</td>
-            <td>${row["Speaker"]}</td>
-            <td>${row["Participants"]}</td>
-            <td>${row["Remarks"]}</td>
+            <td>${row["Details"]}</td>
           `;
-            tableBody.appendChild(tr);
-          }
-        });
-      })
-      .catch(error => console.error("Error loading CSV:", error));
-  </script>
+          tableBody.appendChild(tr);
+        }
+      });
+    })
+    .catch(error => console.error("Error loading CSV:", error));
+</script>
+
 
 
   <script src="script.js"></script>
