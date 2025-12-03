@@ -739,16 +739,30 @@ body.sidebar-open {
 }
 
 /* --- Carousel Track (the moving strip) --- */
-.achievements-carousel-track,
+.achievements-carousel-track{
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollLoop1 25s linear infinite;
+}
+
 .Events-carousel-track {
     display: flex;
     gap: 20px;
     width: max-content;
-    animation: scrollLoop 25s linear infinite;
+    animation: scrollLoop2 25s linear infinite;
 }
 
 /* Infinite loop keyframes */
-@keyframes scrollLoop {
+@keyframes scrollLoop1 {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(50%);
+    }
+}
+@keyframes scrollLoop2 {
     0% {
         transform: translateX(0);
     }
