@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department of Physics - IIT Indore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="navbar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+</head>
+<body>
+
+    <header id="header" class="header"></header>
+    <div id="sidebar" class="sidebar"></div>
+    <main id="main-content" class="main-content">
+        <section class="hero-section">
+            <div class="hero-canvas-container" id="three-atom-container"></div>
+            <div class="hero-text-container">
+                <h1 class="hero-title font-serif">Welcome to Physics Department-IIT Indore</h1>
+                <p class="hero-subtitle">We are <span class="typed-text" id="typed-subtitle"></span></p>
+                <a href="resdivs.html" class="hero-button">Explore Our Work</a>
+            </div>
+        </section>
+        <div class="content-wrapper">
+            <section id="about" class="content-section animated-section">
+                <div>
+                    <p class="section-pretitle">Our Mission</p>
+                    <h2 class="section-title font-serif">Advancing Knowledge, Inspiring Minds.</h2>
+                    <p class="section-text">Established in 2009, the Department of Physics at IIT Indore is a dynamic hub of intellectual curiosity and cutting-edge research. We offer a vibrant academic environment exploring everything from the quantum realm to the vastness of the cosmos.</p>
+                    <p class="section-text">Our faculty are leaders in their fields, dedicated to both mentorship and groundbreaking discovery.</p>
+                </div>
+                <div class="achievements-carousel-container">
+                    <h3 class="achievements-title">Recent Awards & Achievements</h3>
+                    <div class="achievements-carousel-track" id="achievements-track"></div>
+                </div>
+            </section>
+            <section class="animated-section">
+                <div class="section-header">
+                    <p class="section-pretitle">News</p>
+                    <h2 class="section-title font-serif">Upcoming Events</h2>
+                    <div class="Events-carousel-container">
+                        <div class="Events-carousel-track" id="Events-track"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="footer" class="footer"></footer>
+    <script src="navbar.js"></script>
+
+<script>
+    
+    if (typeof Typed !== 'undefined') {
+        new Typed('#typed-subtitle', {
+            strings: ['Innovators.', 'Explorers.', 'Pioneers.'],
+            typeSpeed: 70,
+            backSpeed: 50,
+            loop: true,
+        });
+    }
+
+    if (typeof THREE !== 'undefined') {
+        const mount = document.getElementById('three-atom-container');
+        if (mount && !mount.querySelector('canvas')) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(90, mount.clientWidth / mount.clientHeight, 0.1, 1000);
+            camera.position.set(5, 0.2, 5);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(mount.clientWidth, mount.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            mount.appendChild(renderer.domElement);
+            const group = new THREE.Group();
+            scene.add(group);
+            const nucleus = new THREE.Mesh(
+                new THREE.IcosahedronGeometry(0.5, 3),
+                new THREE.MeshStandardMaterial({ color: 0x3b82f6, roughness: 0.4, metalness: 0.6 })
+            );
+            group.add(nucleus);
+            const electronMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 1 });
+            const orbits = [];
+            for (let i = 0; i < 3; i++) {
+                const orbit = new THREE.Group();
+                const ringGeometry = new THREE.TorusGeometry(1.5 + i * 0.7, 0.02, 16, 100);
+                const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x94a3b8, transparent: true, opacity: 0.3 });
+                const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+                orbit.add(ring);
+                const electron = new THREE.Mesh(new THREE.SphereGeometry(0.1, 32, 32), electronMaterial);
+                electron.position.x = 1.5 + i * 0.7;
+                orbit.add(electron);
+                orbit.rotation.x = Math.random() * Math.PI;
+                orbit.rotation.y = Math.random() * Math.PI;
+                group.add(orbit);
+                orbits.push({ orbit, speed: (Math.random() + 0.5) * 0.01 });
+            }
+            const pointLight = new THREE.PointLight(0xffffff, 1.5, 100);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+                mouseY = (event.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+            });
+            const animate = () => {
+                requestAnimationFrame(animate);
+                orbits.forEach((item) => item.orbit.rotation.z += item.speed);
+                group.rotation.x += (-mouseY * 0.5 - group.rotation.x) * 0.02;
+                group.rotation.y += (mouseX * 0.5 - group.rotation.y) * 0.02;
+                renderer.render(scene, camera);
+            };
+            animate();
+            window.addEventListener('resize', () => {
+                camera.aspect = mount.clientWidth / mount.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(mount.clientWidth, mount.clientHeight);
+            });
+        }
+    }
+
+    // --- CSV Parsing Logic (Unchanged) ---
+    function parseCSV(csv) {
+        const lines = csv.trim().split('\n');
+        const headers = lines[0].split(',').map(h => h.trim());
+        return lines.slice(1).map(line => {
+            const values = (line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || []).map(v => v.replace(/(^"|"$)/g, '').trim());
+            const entry = {};
+            headers.forEach((header, i) => {
+                entry[header] = values[i] || '';
+            });
+            return entry;
+        });
+    }
+
+    const achievementsSheetUrl = "/files/achievements.csv";
+    const eventsSheetUrl = "/files/events.csv";
+
+    // 🚀 MODIFIED: Populate Achievements to include ImageURL
+    async function populateAchievements() {
+        const track = document.getElementById("achievements-track");
+        if (!track) return;
+        try {
+            const response = await fetch(achievementsSheetUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const csvData = await response.text();
+            const achievements = parseCSV(csvData);
+            track.innerHTML = "";
+
+            // Generate HTML for all cards
+            let cardsHTML = '';
+            achievements.forEach(item => {
+                // Determine the image URL, defaulting to an empty string if not present
+                const imageUrl = item.ImageURL || ''; 
+                
+                cardsHTML += `
+                    <div class="achievement-card">
+                        ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${item.Title || 'Achievement image'}" class="card-image"></div>` : ''}
+                        <div class="card-content">
+                            <h3 class="achievement-card-title">${item.Title || 'New Achievement'}</h3>
+                            <p class="achievement-description">${item.Description || 'Details to be updated soon.'}</p>
+                            <p class="achievement-recipient">${item.Recipient ? '— ' + item.Recipient : ''}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Duplicate the list of cards (required for seamless loop animation)
+            track.innerHTML = cardsHTML + cardsHTML;
+
+        } catch (err) {
+            console.error("Achievements load error:", err);
+            track.innerHTML = "<p class='error-message'>Could not load achievements.</p>";
+        }
+    }
+
+    // 🚀 MODIFIED: Populate Events to include ImageURL
+    async function populateEvents() {
+        const track = document.getElementById("Events-track");
+        if (!track) return;
+        try {
+            const response = await fetch(eventsSheetUrl);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const csvData = await response.text();
+            const events = parseCSV(csvData);
+            track.innerHTML = "";
+
+            // Generate HTML for all cards
+            let cardsHTML = '';
+            events.forEach(item => {
+                // Determine the image URL, defaulting to an empty string if not present
+                const imageUrl = item.ImageURL || '';
+                
+                cardsHTML += `
+                    <div class="research-card">
+                        ${imageUrl ? `<div class="card-image-container"><img src="${imageUrl}" alt="${item.Title || 'Event image'}" class="card-image"></div>` : ''}
+                        <div class="card-content">
+                            <h3 class="event-card-title">${item.Title || 'Upcoming Event'}</h3>
+                            <p class="event-description">${item.Description || 'Details coming soon.'}</p>
+                            <p class="event-recipient">${item.Recipient ? '— ' + item.Recipient : ''}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Duplicate the list of cards (required for seamless loop animation)
+            track.innerHTML = cardsHTML + cardsHTML;
+
+        } catch (err) {
+            console.error("Events load error:", err);
+            track.innerHTML = "<p class='error-message'>Could not load events.</p>";
+        }
+    }
+
+    populateAchievements();
+    populateEvents();
+
+    const animatedSections = document.querySelectorAll('.animated-section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    animatedSections.forEach(section => observer.observe(section));
+</script>
+<script src="navbar.js"></script>
+</body>
+</html>
