@@ -1,4 +1,7 @@
-Title,Description,Recipient,ImageUrl
-Astronomy Night,Public telescope event and cosmic observation night.,Astronomy Club,https://img.freepik.com/premium-photo/random-image_590832-8566.jpg
-Photonics Colloquium,Talk series on optical materials and devices.,Prof. A. Sharma,https://img.freepik.com/premium-photo/random-image_590832-8566.jpg
-Quantum Computing Workshop,Hands-on session on quantum algorithms and applications.,Department of Physics,https://img.freepik.com/premium-photo/random-image_590832-8566.jpg
+ImageURL,Title,Description,Recipient,Date,Link
+/files/images/icons/def.jpg,Quantum Workshop,A 3-day hands-on workshop on quantum computing,All students,9/5/2025,/events/quantum-workshop
+/files/images/icons/def.jpg,Monthly Colloquium,Guest lecture by Prof. A. K. Mehta on topological phases,All faculty & students,8/20/2025,/events/colloquium-aug
+/files/images/icons/def.jpg,Science Outreach Day,Department open day for local schools,Outreach Team,10/2/2025,/events/outreach
+/files/images/icons/def.jpg,Device Hackathon,Inter-department hackathon for device prototyping,Student Clubs,11/12/2025,/events/hackathon
+/files/images/icons/def.jpg,International Conference,ICMP 2025 hosted by IIT Indore,Organization Committee,12/1/2025,/events/icmp2025
+/files/images/icons/def.jpg,ABC,Webinar: Careers in Research,Online webinar for final year students,7/30/2025,/events/webinar-careers
